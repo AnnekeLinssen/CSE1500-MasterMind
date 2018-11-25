@@ -1,5 +1,6 @@
 
-/* Constructor */
+/* Constructor.
+Parameters are 10 Color objects */
 function Ten(colorA, colorB, colorC, colorD, colorE,
     colorF, colorG, colorH, colorI, colorJ) {
     Ten_colors[0] = colorA;

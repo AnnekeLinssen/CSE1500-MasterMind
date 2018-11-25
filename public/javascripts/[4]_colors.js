@@ -1,5 +1,6 @@
 
-/* Constructor */
+/* Constructor.
+Parameters are 4 Color objects. */
 function Four_colors(colorA, colorB, colorC, colorD) {
     Four_colors[0] = colorA;
     Four_colors[1] = colorB;
@@ -29,12 +30,13 @@ Four_colors.prototype.setColori = function(i, newColor){
 Throws an error if i is out of bounds for the array. */
 Four_colors.prototype.getColori = function(i){
     if (i > 3) {
-        throw ("IndexOutOfBoundsException.\nThe value of the index was " + i + ", but the maximum is 3.");
+        throw ("IndexOutOfBoundsException\n" +
+        "The value of the index was " + i + ", but the maximum is 3.");
     }
     return Four_colors[i];
 };
 
-/* Resets all the colors to the pre specified standard. */
+/* Resets all the colors to standardColor. */
 Four_colors.prototype.resetAll = function(){
     for(var i = 0; i <= 3; i++) {
         Four_colors.setColori(i, standardColor);
