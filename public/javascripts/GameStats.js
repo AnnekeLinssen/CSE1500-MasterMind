@@ -2,7 +2,6 @@
 function GameStats() {
     this.totalGames = 0;
     this.totalPlayers = 0;
-    this.latestGame;
 };
 
 /* Increments totalGames by 1. */
@@ -17,13 +16,18 @@ GameStats.newGameID = function() {
 };
 
 /* Increments totalPlayers by 1. */
-GameStats.addPlayer = function() {
+GameStats.incrPlayer = function() {
     totalPlayers = totalPlayers + 1;
 };
 
+/* Decrements totalPlayers by 1. */
+GameStats.decrPlayer = function() {
+    totalPlayers = totalPlayers - 1;
+}
+
 /* Returns a new playerID (equal to totalPlayers) and increments totalPlayers by 1. */
 GameStats.newPlayerID = function() {
-    GameStats.totalPlayers.addPlayer();
+    GameStats.totalPlayers.incrPlayer();
     return totalPlayers;
 };
 

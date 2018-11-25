@@ -24,7 +24,7 @@ Color.prototype.resetColor = function() {
 Color.prototype.generateRandom = function() {
     var rColor = newColor();
     var shade;
-    var number = Math.floor.Math.random()*10;
+    var number = (Math.floor.Math.random()*10 + 1);
     switch(number) {
         case 1:
             shade = "red";
