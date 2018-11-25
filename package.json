@@ -1,6 +1,6 @@
 {
   "name": "mastermind",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -11,6 +11,27 @@
     "ejs": "~2.5.7",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
-    "morgan": "~1.9.0"
-  }
+    "morgan": "~1.9.0",
+    "ws": "^6.1.2"
+  },
+  "description": "WDT-Project",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnnekeLinssen/CSE1500-MasterMind.git"
+  },
+  "keywords": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Node",
+    "Express"
+  ],
+  "author": "Alves_Marinov, Anneke_Linssen",
+  "license": "SEE LICENSE IN license.md",
+  "bugs": {
+    "url": "https://github.com/AnnekeLinssen/CSE1500-MasterMind/issues"
+  },
+  "homepage": "https://github.com/AnnekeLinssen/CSE1500-MasterMind#readme"
 }

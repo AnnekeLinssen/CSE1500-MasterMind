@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSE1500_Mastermind</title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/concede.js" ></script>
+<script type="text/javascript" src="javascript/rules.js" ></script>
+<script type="text/javascript" src="javascript/colors.js"></script>
+
+</head>
+
+<body>
+	<div id="header_introduction">
+		<div id="logo">
+			<h3>Mastermind</h3>
+		</div>
+		<div id="slogan">
+			<h4>Can you crack the code?</h4>
+		</div>
+	</div>
+	<div id="current_guess">
+		<div id="color_selections">
+			<a>Current Guess</a>
+			<br>
+			<div style="display:inline-block" id="color_selected1">
+				Ga
+			</div>
+			<div style="display:inline-block" id="color_selected2">
+				Gb
+			</div>
+			<div style="display:inline-block" id="color_selected3">
+				Gc
+			</div>
+			<div style="display:inline-block" id="color_selected4">
+				Gd
+			</div>
+			<div style="display:inline-block" id="Crack">
+				<button>CRACK</button>
+			</div>
+		</div>
+		
+		<div id="color_choices">
+			<div style="float:left" id="C1">C1</div>
+			<div style="float:left" id="C2">C2</div>
+			<div style="float:left" id="C3">C3</div>
+			<div style="float:left" id="C4">C4</div>
+			<div style="float:left" id="C5">C5</div>
+			<div style="float:left" id="C6">C6</div>
+			<div style="float:left" id="C7">C7</div>
+			<div id="C8">C8</div>
+		</div>
+		<a>Timer: XX:XX</a>
+	</div>
+	<br>
+	<div style="margin-left: auto" id="previous_guesses">
+		<a>Previous Guesses</a>
+		<br>
+		<div id="guess1">
+			<div style="float:left" id="G1a">G1a</div>
+			<div style="float:left" id="G1b">G1b</div>
+			<div style="float:left" id="G1c">G1c</div>
+			<div id="G1d">G1d</div>
+		</div>
+		<div id="guess2">
+			<div style="float:left" id="G2a">G2a</div>
+			<div style="float:left" id="G2b">G2b</div>
+			<div style="float:left" id="G2c">G2c</div>
+			<div id="G2d">G2d</div>
+		</div>	
+		<div id="guess3">
+			<div style="float:left" id="G3a">G3a</div>
+			<div style="float:left" id="G3b">G3b</div>
+			<div style="float:left" id="G3c">G3c</div>
+			<div id="G3d">G3d</div>
+		</div>
+		<div id="guess4">
+			<div style="float:left" id="G4a">G4a</div>
+			<div style="float:left" id="G4b">G4b</div>
+			<div style="float:left" id="G4c">G4c</div>
+			<div id="G4d">G4d</div>
+		</div>
+		<div id="guess5">
+			<div style="float:left" id="G5a">G5a</div>
+			<div style="float:left" id="G5b">G5b</div>
+			<div style="float:left" id="G5c">G5c</div>
+			<div id="G5d">G5d</div>
+		</div>	
+		<div id="guess6">
+			<div style="float:left" id="G6a">G6a</div>
+			<div style="float:left" id="G6b">G6b</div>
+			<div style="float:left" id="G6c">G6c</div>
+			<div id="G6d">G6d</div>
+		</div>
+		<div id="guess7">
+			<div style="float:left" id="G7a">G7a</div>
+			<div style="float:left" id="G7b">G7b</div>
+			<div style="float:left" id="G7c">G7c</div>
+			<div id="G7d">G7d</div>
+		</div>	
+		<div id="guess8">
+			<div style="float:left" id="G8a">G8a</div>
+			<div style="float:left" id="G8b">G8b</div>
+			<div style="float:left" id="G8c">G8c</div>
+			<div id="G8d">G8d</div>
+		</div>
+		<div id="guess9">
+			<div style="float:left" id="G9a">G9a</div>
+			<div style="float:left" id="G9b">G9b</div>
+			<div style="float:left" id="G9c">G9c</div>
+			<div id="G9d">G9d</div>
+		</div>
+		<div id="guess10">
+			<div style="float:left" id="G10a">G10a</div>
+			<div style="float:left" id="G10b">G10b</div>
+			<div style="float:left" id="G10c">G10c</div>
+			<div id="G10d">G10d</div>
+		</div>	
+		<button class="concede_button">I give up! Show me the solution!</button>
+			  
+	</div>
+</body>
+	
+<footer>
+	<div id="Rules">
+		<a class="rules_button">Rules</a>
+		<div class="rules_description" style="display:none">
+			
+		</div>
+		<p>Created by: AnA</p>
+	</div>
+</footer>
+</html>
