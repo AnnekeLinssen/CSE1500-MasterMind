@@ -18,7 +18,7 @@ function Four_colors(colorA, colorB, colorC, colorD) {
 
 /* Sets a new color for the given position i.
 Throws an error if i is out of bounds for the array. */
-Four_colors.prototype.setColori = function(i, newColor){
+Four_colors.prototype.setColori = function(i, newColor) {
     if (i > 3) {
         throw ("IndexOutOfBoundsException\n" +
         "The value of the index was " + i + ", but the maximum is 3.");
@@ -28,7 +28,7 @@ Four_colors.prototype.setColori = function(i, newColor){
 
 /* Gets the color for the given position i.
 Throws an error if i is out of bounds for the array. */
-Four_colors.prototype.getColori = function(i){
+Four_colors.prototype.getColori = function(i) {
     if (i > 3) {
         throw ("IndexOutOfBoundsException\n" +
         "The value of the index was " + i + ", but the maximum is 3.");
@@ -37,11 +37,27 @@ Four_colors.prototype.getColori = function(i){
 };
 
 /* Resets all the colors to standardColor. */
-Four_colors.prototype.resetAll = function(){
+Four_colors.prototype.resetAll = function() {
     for(var i = 0; i <= 3; i++) {
         Four_colors.setColori(i, standardColor);
     }
 };
+
+/* Generates a random combination of 4 distinct Color objects and returns these as a Four_colors object. */
+Four_colors.prototype.generateRandomCombination = function() {
+    var rColor1 = Color.generateRandom();
+    do {
+        var rColor2 = Color.generateRandom();
+    } while (rColor2.equals(rColor1));
+    do {
+        var rColor3 = Color.generateRandom();
+    } while (rColor3.equals(rColor1) || rColor3.equals(rColor2));
+    do {
+        var rColor4 = Color.generateRandom();
+    } while (rColor4.equals(rColor1) || rColor4.equals(rColor2) || rColor4.equals(rColor3));
+    var rCombination = new Four_colors(rColor1, rColor2, rColor3, rColor4);
+    return rCombination;
+}
 
 /* Checks if all four colors (in order) of the objects are the same.
 Returns true if they are, else it returns false. */
@@ -56,3 +72,6 @@ Four_colors.prototype.equals = function(Other) {
     }
     return false;
 };
+
+
+module.exports = Four_colors;
