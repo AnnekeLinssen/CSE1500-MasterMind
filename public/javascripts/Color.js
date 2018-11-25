@@ -71,3 +71,5 @@ Color.prototype.equals = function(Other) {
         return false;
     }
 };
+
+module.exports = Color;

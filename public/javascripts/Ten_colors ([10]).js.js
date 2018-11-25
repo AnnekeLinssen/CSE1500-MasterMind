@@ -1,3 +1,4 @@
+var c = require(Color);
 
 /* Constructor.
 Parameters are 10 Color objects */
