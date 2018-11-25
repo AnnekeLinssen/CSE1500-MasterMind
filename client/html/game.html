@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>CSE1500_Mastermind</title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/concede.js" ></script>
+<script type="text/javascript" src="javascript/rules.js" ></script>
+
 </head>
 
 <body>
@@ -111,13 +119,17 @@
 			<div style="float:left" id="G10c">G10c</div>
 			<div id="G10d">G10d</div>
 		</div>	
-		<button>I give up! Show me the solution!</button>
+		<button class="concede_button">I give up! Show me the solution!</button>
+			  
 	</div>
 </body>
 	
 <footer>
 	<div id="Rules">
-		<a href="ToBeLinked">Rules</a>
+		<a class="rules_button">Rules</a>
+		<div class="rules_description" style="display:none">
+			
+		</div>
 		<p>Created by: AnA</p>
 	</div>
 </footer>

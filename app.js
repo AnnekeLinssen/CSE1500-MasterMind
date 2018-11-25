@@ -45,13 +45,21 @@ app.use(function(err, req, res, next) {
 });
 
 */
-/*
-app.use("/", function(req, res){
+
+app.use(express.static(__dirname + "/client"));
+
+app.get("/", function(req, res){
   res.sendfile("client/index.html", {root : "./"});
 });
-*/
-var server = http.createServer(app).listen(port);
 
+app.get("/Game", function(req, res){
+  res.sendfile("client/html/game.html", {root : "./"});
+});
+
+
+
+var server = http.createServer(app).listen(port);
+/*
 var  httpPrefix = "<!doctype html><html><head><meta charset=\"UTF-8\"><title>CSE1500_Mastermind</title></head><body><h1>";
 var httpSuffix = "</h1></body></html>";
 
@@ -60,7 +68,7 @@ app.get("/greetme", function (req, res) {
   var name = (query["name"] != undefined ) ? query.name : "Anonymous";
   res.send(httpPrefix + "Greetings, " + name + httpSuffix);
 })
-
+*/
 /*
 const wss = new websocket.Server({ server });
 
