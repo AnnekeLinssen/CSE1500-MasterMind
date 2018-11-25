@@ -20,7 +20,8 @@ Color.prototype.resetColor = function() {
         this.color = standardColor;
 };
 
-/* Checks if the color of the objects is the same. Returns true if they are, else it returns false. */
+/* Checks if the color of the objects is the same.
+Returns true if they are equal, else returns false. */
 Color.prototype.equals = function(Other) {
     if (Other instanceof Color) {
         return this.getColor.equals(Other.getColor);

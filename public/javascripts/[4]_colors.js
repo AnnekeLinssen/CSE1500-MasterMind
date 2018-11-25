@@ -1,7 +1,3 @@
-var ColorA;
-var ColorB;
-var ColorC;
-var ColorD;
 
 /* Constructor */
 function Four_colors(ColorA, ColorB, ColorC, ColorD) {
@@ -23,10 +19,9 @@ Four_colors.prototype.getColori = function(i){
 
 /* Resets all the colors to the pre specified standard */
 Four_colors.prototype.resetAll = function(){
-    Four_colors.setColori(0, standardColor);
-    Four_colors.setColori(1, standardColor);
-    Four_colors.setColori(2, standardColor);
-    Four_colors.setColori(3, standardColor);
+    for(var i = 0; i <= 3; i++) {
+        Four_colors.setColori(i, standardColor);
+    }
 };
 
 /* Checks if all four colors (in order) of the objects are the same.
