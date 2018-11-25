@@ -1,3 +1,4 @@
+var c = require(Color);
 
 /* Constructor.
 Parameters are 4 Color objects. */
@@ -72,6 +73,5 @@ Four_colors.prototype.equals = function(Other) {
     }
     return false;
 };
-
 
 module.exports = Four_colors;
