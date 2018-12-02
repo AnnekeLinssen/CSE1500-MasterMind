@@ -91,7 +91,7 @@ Four_colors.prototype.colorsCorrect = function(Solution) {
 Four_colors.prototype.placesCorrect = function(Solution) {
     var plaCorr = 0;
     for(var i = 0; i <= 3; i++) {
-        if((Four_colors.getColori(i).equals(Solution.getColori(i))) {
+        if(Four_colors.getColori(i).equals(Solution.getColori(i))) {
             plaCorr++;
         }
     }
