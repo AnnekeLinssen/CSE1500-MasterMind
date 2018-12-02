@@ -5,6 +5,7 @@ var websocket = require("ws");
 var http = require("http")
 var app = express();
 var port = process.argv[2];
+var gameStats = require("./public/javascripts/GameStats")
 
 module.exports = port;
 
@@ -47,14 +48,14 @@ wss.on("connection", function(ws) {
      */
 
 
-     
+
     let con = ws; 
     if (connectionID % 2 == 0){
       games++;
    }
-    let bahur = connectionID++;
+    let bahur = gameStats.totalGames++;
     con.id = bahur;
-    let playerType =  player++;
+    let playerType =  gameStats.;
    
     
     
