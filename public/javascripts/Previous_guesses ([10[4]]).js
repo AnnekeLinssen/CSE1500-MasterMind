@@ -1,4 +1,6 @@
-
+var Color = require("./Color");
+var standardColor = "white";
+var Four_colors = require("./Four_colors ([4])");
 /* Constructor.
 Parameters are 10 Four_colors objects.*/
 function PreviousGuesses () {
@@ -42,3 +44,6 @@ PreviousGuesses.prototype.setNextAttempt = function(attempt) {
     PreviousGuesses.setAttempti(this.attemptsMade, attempt);
     PreviousGuesses.increaseAttempts;
 };
+
+
+module.exports = PreviousGuesses;

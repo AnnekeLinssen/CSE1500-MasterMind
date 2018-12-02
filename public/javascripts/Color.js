@@ -7,7 +7,7 @@ function Color() {
 
 /* Sets the color of the object to the new input */
 Color.prototype.setColor = function(newColor) {
-        color = newColor;
+        this.color = newColor;
 };
 
 /* Returns the color of the object */
@@ -22,9 +22,10 @@ Color.prototype.resetColor = function() {
 
 /* Generates a random object Color with one of 8 colors. */
 Color.prototype.generateRandom = function() {
-    var rColor = newColor();
-    var shade;
-    var number = (Math.floor.Math.random()*10 + 1);
+    var rColor = new Color("a");
+    var shade = "bahur";
+    var number = (Math.floor(Math.random()*10 + 1));
+    console.log(number);
     switch(number) {
         case 1:
             shade = "red";
@@ -65,7 +66,7 @@ Color.prototype.generateRandom = function() {
 Returns true if they are equal, else returns false. */
 Color.prototype.equals = function(Other) {
     if (Other instanceof Color) {
-        return this.getColor.equals(Other.getColor);
+        return this.getColor() === Other.getColor();
     }
     else {
         return false;

@@ -1,4 +1,4 @@
-var c = require(Color);
+var c = require("./Color");
 
 /* Constructor.
 Parameters are 4 Color objects. */
@@ -46,19 +46,22 @@ Four_colors.prototype.resetAll = function() {
 
 /* Generates a random combination of 4 distinct Color objects and returns these as a Four_colors object. */
 Four_colors.prototype.generateRandomCombination = function() {
-    var rColor1 = Color.generateRandom();
+    
+    var rC = new c("a");
+    var rColor1 = rC.generateRandom();
     do {
-        var rColor2 = Color.generateRandom();
-    } while (rColor2.equals(rColor1));
+        //console.log("a");
+        var rColor2 = rC.generateRandom();
+    } while (rColor2 === rColor1);
     do {
-        var rColor3 = Color.generateRandom();
-    } while (rColor3.equals(rColor1) || rColor3.equals(rColor2));
+        var rColor3 = rC.generateRandom();
+    } while (rColor3 === rColor1 || rColor3 === rColor2);
     do {
-        var rColor4 = Color.generateRandom();
-    } while (rColor4.equals(rColor1) || rColor4.equals(rColor2) || rColor4.equals(rColor3));
+        var rColor4 = rC.generateRandom();
+    } while (rColor4 === rColor1 || rColor4 === rColor2 || rColor4 === rColor3);
     var rCombination = new Four_colors(rColor1, rColor2, rColor3, rColor4);
     return rCombination;
-}
+};
 
 /* Checks if all four colors (in order) of the objects are the same.
 Returns true if they are, else it returns false. */

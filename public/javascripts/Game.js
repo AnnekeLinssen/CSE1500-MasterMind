@@ -1,9 +1,11 @@
 var fc = require('./Four_colors ([4])');
+var GameStats = require("./GameStats");
+var PreviousGuesses = require("./Previous_guesses ([10[4]])");
 
 /* Constructor.
 Has as a parameter the playerID for player1. */
-function Game(player) {
-    this.gameID;
+function Game(player, gameID) {
+    this.gameID = gameID;
     this.player1 = player;
     this.player2;
     this.combination;
@@ -24,7 +26,7 @@ Game.prototype.setCombination = function(combination) {
 
 /* Generates a random combination of four distinct Colors. */
 Game.prototype.generateCombination = function() {
-    var combination = Four_colors.generateRandomCombination();
+    var combination = fc.generateRandomCombination();
     return combination;
 };
 
@@ -33,12 +35,20 @@ Then creates a gameID and assigns a random combination.
 Initilises the empty arrays of PreviousGuesses.
 Sets playable to true. */
 Game.prototype.startGame = function(player) {
-    this.gameID = GameStats.newGameID();
+    // this.gameID = GameStats.newGameID();
+    
     this.player2 = player;
-    Game.setCombination(Game.generateCombination());
-    Game.previousGuesses1 = new PreviousGuesses();
-    Game.previousGuesses2 = new PreviousGuesses();
+    console.log("2");
+    var rCom = new fc("a", "b", "c", "d");
+    console.log("3");
+    this.combination = rCom.generateRandomCombination();
+    console.log("4");
+    this.previousGuesses1 = new PreviousGuesses();
+    console.log("5");
+    this.previousGuesses2 = new PreviousGuesses();
+    console.log("6");
     this.playable = true;
+    console.log("7");
 };
 
 Game.prototype.isPlayable = function() {
