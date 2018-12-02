@@ -21,8 +21,9 @@ app.get("/Game", function(req, res){
 var server = http.createServer(app);
 
 var connectionID = 0;
-var player = 0;
-var game = 0;
+var player = 1;
+var game = 1;
+let games = 0;
 
 
 const wss = new websocket.Server({ server });
@@ -37,14 +38,22 @@ wss.on("connection", function(ws) {
         ws.close();
     }, 1000);
 
+
+    var websockets = {};
      /*
      * two-player game: every two players are added to the same game
      */
     let con = ws; 
+    if (connectionID % 2 == 0){
+      games++;
+   }
     let bahur = connectionID++;
     con.id = bahur;
     let playerType =  player++;
-    let games = game++;
+   
+    
+    
+    websockets[con.id] = game;
     //websockets[con.id] = currentGame;
 
     
