@@ -5,7 +5,8 @@ var websocket = require("ws");
 var http = require("http")
 var app = express();
 var port = process.argv[2];
-var gameStats = require("./public/javascripts/GameStats")
+var gameStats = require("./public/javascripts/GameStats");
+var Game = require("./public/javascripts/Game");
 
 module.exports = port;
 
@@ -23,13 +24,13 @@ app.get("/Game", function(req, res){
 
 var server = http.createServer(app);
 
-var connectionID = 0;
-var player = 1;
+
+
 var game = 1;
-let games = 0;
 
 
 const wss = new websocket.Server({ server });
+var currentGame;
 
 wss.on("connection", function(ws) {
     //let's slow down the server response time a bit to make the change visible on the client side
@@ -41,6 +42,9 @@ wss.on("connection", function(ws) {
         ws.close();
     }, 1000);
 
+    var player = gameStats.newPlayerID();
+    console.log(gameStats.totalPlayers + "\n\n");
+
 
     var websockets = {};
      /*
@@ -50,16 +54,23 @@ wss.on("connection", function(ws) {
 
 
     let con = ws; 
-    if (connectionID % 2 == 0){
-      games++;
-   }
-    let bahur = gameStats.totalGames++;
-    con.id = bahur;
-    let playerType =  gameStats.;
    
+    if (gameStats.isPlayerAvailable()){
+      currentGame = new Game(player, gameStats.newGameID());
+      console.log("IF");
+    }
+    else {
+      console.log("elseef");
+      currentGame.startGame(player);
+      console.log("else");
+    }
+    //let bahur = gameStats.totalGames++;
+    //con.id = bahur;
+    // let playerType;
+
     
     
-    websockets[con.id] = game;
+    //websockets[con.id] = game;
     //websockets[con.id] = currentGame;
 
     
@@ -68,7 +79,7 @@ wss.on("connection", function(ws) {
         console.log("[LOG] " + message);
     });
 
-    console.log("Player %d placed in game %d as %d", bahur, games, playerType);
+    console.log("Player %s placed in game %s", player, currentGame.gameID);
 });
 
 server.listen(port);
