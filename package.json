@@ -16,7 +16,10 @@
   },
   "description": "WDT-Project",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-google": "^0.11.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AnnekeLinssen/CSE1500-MasterMind.git"
