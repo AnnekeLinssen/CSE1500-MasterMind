@@ -1,12 +1,12 @@
 /* Constructor */
-function GameStats() {
-    this.totalGames = 0;
-    this.totalPlayers = 0;
+var GameStats = {
+    totalGames: 0,
+    totalPlayers: 0
 };
 
 /* Returns the totalGames. */
 GameStats.getTotalGames = function() {
-    return this.totalGames;
+    return totalGames;
 }
 
 /* Increments totalGames by 1. */
