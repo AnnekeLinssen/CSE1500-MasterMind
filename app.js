@@ -6,13 +6,15 @@ var http = require("http")
 var app = express();
 var port = process.argv[2];
 
+module.exports = port;
+
 app.use(express.static(__dirname + "/client"));
 
-app.use("/", function(req, res){
+app.get("/", function(req, res){
   res.sendfile("client/index.html", {root : "./"});
 });
 
-app.use("/Game", function(req, res){
+app.get("/Game", function(req, res){
   res.sendfile("client/html/game.html", {root : "./"});
 });
 
@@ -40,6 +42,7 @@ wss.on("connection", function(ws) {
      */
     let con = ws; 
     let bahur = connectionID++;
+    con.id = bahur;
     let playerType =  player++;
     let games = game++;
     //websockets[con.id] = currentGame;
