@@ -74,4 +74,28 @@ Four_colors.prototype.equals = function(Other) {
     return false;
 };
 
+/* Returns the amount of colors that were guessed correctly, but are still in the wrong position */
+Four_colors.prototype.colorsCorrect = function(Solution) {
+    var numCorr = 0;
+    for(var i = 0; i <= 3; i++) {
+        for(var j = 0; j <= 3; j++) {
+            if(Four_colors.getColori(i).equals(Solution.getColori(j))) {
+                numCorr++;
+            }
+        }
+    }
+    return (numCorr-Four_colors.placesCorrect(Solution));
+}
+
+/* Returns the amount of colors that are in the correct position */
+Four_colors.prototype.placesCorrect = function(Solution) {
+    var plaCorr = 0;
+    for(var i = 0; i <= 3; i++) {
+        if((Four_colors.getColori(i).equals(Solution.getColori(i))) {
+            plaCorr++;
+        }
+    }
+    return plaCorr;
+}
+
 module.exports = Four_colors;
