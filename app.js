@@ -45,6 +45,9 @@ wss.on("connection", function(ws) {
      /*
      * two-player game: every two players are added to the same game
      */
+
+
+     
     let con = ws; 
     if (connectionID % 2 == 0){
       games++;
