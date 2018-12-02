@@ -18,6 +18,8 @@ app.get("/Game", function(req, res){
   res.sendfile("client/html/game.html", {root : "./"});
 });
 
+
+
 var server = http.createServer(app);
 
 var connectionID = 0;
