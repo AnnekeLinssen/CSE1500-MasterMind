@@ -3,7 +3,7 @@ var fc = require('./Four_colors ([4])');
 /* Constructor.
 Has as a parameter the playerID for player1. */
 function Game(player) {
-    this.gameID = GameStats.newGameID();
+    this.gameID;
     this.player1 = player;
     this.player2;
     this.combination;
@@ -45,3 +45,4 @@ Game.prototype.isPlayable = function() {
     return this.playable;
 };
 
+module.exports = Game;

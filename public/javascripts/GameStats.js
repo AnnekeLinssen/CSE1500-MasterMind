@@ -4,6 +4,11 @@ function GameStats() {
     this.totalPlayers = 0;
 };
 
+/* Returns the totalGames. */
+GameStats.getTotalGames = function() {
+    return this.totalGames;
+}
+
 /* Increments totalGames by 1. */
 GameStats.incrGame = function() {
     totalGames = totalGames + 1;
@@ -40,4 +45,4 @@ GameStats.isPlayerAvailable = function() {
     return true;
 };
 
-
+module.exports = GameStats;
