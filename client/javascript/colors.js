@@ -3,3 +3,4 @@ var colorClick = function () {
         console.log("Color CLicked");
     });
 };
+$(document).ready(colorClick);
