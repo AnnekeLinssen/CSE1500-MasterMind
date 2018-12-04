@@ -7,7 +7,7 @@ Has as a parameter the playerID for player1. */
 function Game(player, gameID) {
     this.gameID = gameID;
     this.player1 = player;
-    this.player2;
+    this.player2 = null;
     this.combination;
     this.previousGuesses1;
     this.previousGuesses2;
@@ -38,21 +38,37 @@ Game.prototype.startGame = function(player) {
     // this.gameID = GameStats.newGameID();
     
     this.player2 = player;
-    console.log("2");
+    //console.log("2");
     var rCom = new fc("a", "b", "c", "d");
-    console.log("3");
+    //console.log("3");
     this.combination = rCom.generateRandomCombination();
-    console.log("4");
+    //console.log("4");
     this.previousGuesses1 = new PreviousGuesses();
-    console.log("5");
+    //console.log("5");
     this.previousGuesses2 = new PreviousGuesses();
-    console.log("6");
+    //console.log("6");
     this.playable = true;
-    console.log("7");
+    //console.log("7");
 };
 
 Game.prototype.isPlayable = function() {
     return this.playable;
+};
+
+Game.prototype.getPlayer = function (p) {
+    if (p === 1){
+        return this.player1;
+    }
+    else if (p === 2) {
+        return this.player2;
+    }
+    return undefined;
+};
+
+Game.prototype.messageBothPlayers = function (message,p1, p2) {
+
+    this.player1.send(message + p2.toString());
+    this.player2.send(message + p1.toString());
 };
 
 module.exports = Game;

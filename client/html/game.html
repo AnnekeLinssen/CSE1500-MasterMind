@@ -11,7 +11,10 @@
 <script type="text/javascript" src="javascript/concede.js" ></script>
 <script type="text/javascript" src="javascript/rules.js" ></script>
 <script type="text/javascript" src="javascript/colors.js"></script>
-<script type="text/javascript" src="javascript/messages.js"></script>
+<!---
+<script type="text/javascript" src="javascript/greeting.js"></script>
+-->
+<script type="text/javascript" src="/javascript/communication.js"></script>
 
 </head>
 
@@ -28,20 +31,12 @@
 		<div id="color_selections">
 			<a>Current Guess</a>
 			<br>
-			<div style="display:inline-block" id="color_selected1">
-				Ga
-			</div>
-			<div style="display:inline-block" id="color_selected2">
-				Gb
-			</div>
-			<div style="display:inline-block" id="color_selected3">
-				Gc
-			</div>
-			<div style="display:inline-block" id="color_selected4">
-				Gd
-			</div>
-			<div style="display:inline-block" id="Crack">
-				<button>CRACK</button>
+			<div class="color_selection" style="display:inline-block" id="color_selected1">Ga</div>
+			<div class="color_selection" style="display:inline-block" id="color_selected2">Gb</div>
+			<div class="color_selection" style="display:inline-block" id="color_selected3">Gc</div>
+			<div class="color_selection" style="display:inline-block" id="color_selected4">Gd</div>
+			<div style="display:inline-block">
+				<button id="Crack">CRACK</button>
 			</div>
 		</div>
 		
