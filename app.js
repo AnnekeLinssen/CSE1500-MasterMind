@@ -86,9 +86,31 @@ wss.on("connection", function(ws, req) {
     
     ws.on("message", function incoming(message) {
         console.log("[LOG] " + message);
-
-        if (message.substring(0,3) == "C_S"){
-          ws.send(message);
+        var key = message.substring(0,3);
+        if (key === "C_S"){
+          var info = {
+            message: message,
+            game: currentGame,
+            con: con
+          }
+          
+          m = JSON.stringify(info);
+          //console.log(m);
+          ws.send(m);
+        }
+        else if (key === "C_C"){
+          currentGame.setPSelected(con, message);
+          var info = {
+            message: message,
+            game: currentGame,
+            con: con
+          }
+          var choice = (con === currentGame.player1) ? currentGame.p1Selected : currentGame.p2Selected;
+          var p = (con === currentGame.player1) ? "1" : "2";
+          console.log("Player" + p + " Selected: " + choice);
+          m = JSON.stringify(info);
+          //console.log(m);
+          ws.send(m);
         }
         else {
           ws.send("Yup, got it. --Your server.");

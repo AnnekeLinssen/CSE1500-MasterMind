@@ -12,6 +12,8 @@ function Game(player, gameID) {
     this.previousGuesses1;
     this.previousGuesses2;
     this.playable = false;
+    this.p1Selected = undefined;
+    this.p2Selected = undefined;
 };
 
 /* Returns the combination of the Game. */
@@ -23,6 +25,27 @@ Game.prototype.getCombination = function() {
 Game.prototype.setCombination = function(combination) {
     this.combination = combination;
 };
+
+Game.prototype.getPSelected = function (p) {
+    if (p === 1) {
+        return this.p1Selected;
+    }
+    else if (p === 2) {
+        return this.p2Selected;
+    }
+    return undefined;
+}
+
+
+Game.prototype.setPSelected = function (p, s) {
+    if (p === this.player1) {
+        this.p1Selected = s;
+    }
+    else if (p === this.player2) {
+        this.p2Selected = s;
+    }
+}
+
 
 /* Generates a random combination of four distinct Colors. */
 Game.prototype.generateCombination = function() {
@@ -55,11 +78,20 @@ Game.prototype.isPlayable = function() {
     return this.playable;
 };
 
+Game.prototype.getPlayerOne = function () {
+    return this.player1;
+}
+
+
+Game.prototype.getPlayerTwo = function () {
+    return this.player2;
+}
+
 Game.prototype.getPlayer = function (p) {
-    if (p === 1){
+    if (p === this.player1){
         return this.player1;
     }
-    else if (p === 2) {
+    else if (p === this.player2) {
         return this.player2;
     }
     return undefined;
