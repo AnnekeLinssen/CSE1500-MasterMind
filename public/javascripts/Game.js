@@ -8,14 +8,31 @@ function Game(player, gameID) {
     this.gameID = gameID;
     this.player1 = player;
     this.player2 = null;
-    this.combination;
+    this.combination = "still unset";
     this.previousGuesses1;
     this.previousGuesses2;
     this.playable = false;
-    this.p1Selected = undefined;
-    this.p2Selected = undefined;
+    this.p1Selected = "undefined";
+    this.p2Selected = "undefined";
+    this.currentGuessP1 = [0,0,0,0];
+    this.currentGuessP2 = [0,0,0,0];
 };
 
+Game.prototype.getCurrentGuessP1 = function () {
+    return this.currentGuessP1;
+};
+
+Game.prototype.getCurrentGuessP2 = function () {
+    return this.currentGuessP2;
+};
+
+Game.prototype.setCurrentGuessP1 = function (p, g) {
+    this.currentGuessP1[p] = g;
+};
+
+Game.prototype.setCurrentGuessP2 = function (p, g) {
+    this.currentGuessP2[p] = g;
+};
 /* Returns the combination of the Game. */
 Game.prototype.getCombination = function() {
     return this.combination;
@@ -27,13 +44,13 @@ Game.prototype.setCombination = function(combination) {
 };
 
 Game.prototype.getPSelected = function (p) {
-    if (p === 1) {
+    if (p === this.player1) {
         return this.p1Selected;
     }
-    else if (p === 2) {
+    else if (p === this.player2) {
         return this.p2Selected;
     }
-    return undefined;
+    return "undefined";
 }
 
 

@@ -70,7 +70,7 @@ wss.on("connection", function(ws, req) {
       currentGame.startGame(con);
       instance.player2 = "B";
       // currentGame.messageBothPlayers(instance.type, instance.player1, instance.player2);
-      console.log(messages.O_GAME_WON_BY.type);
+      console.log("\nCombination is: " + JSON.stringify(currentGame.getCombination()));
       //console.log("else");
     }
     //let bahur = gameStats.totalGames++;
@@ -88,10 +88,13 @@ wss.on("connection", function(ws, req) {
         console.log("[LOG] " + message);
         var key = message.substring(0,3);
         if (key === "C_S"){
+
+          var p = (con === currentGame.player1) ? "A" : "B";
           var info = {
             message: message,
             game: currentGame,
-            con: con
+            con: con,
+            player: p
           }
           
           m = JSON.stringify(info);
@@ -99,18 +102,42 @@ wss.on("connection", function(ws, req) {
           ws.send(m);
         }
         else if (key === "C_C"){
-          currentGame.setPSelected(con, message);
+          currentGame.setPSelected(con, message.substring(4));
+          
+          var choice = currentGame.getPSelected(con);
+          var p = (con === currentGame.player1) ? "A" : "B";
+          console.log("Player " + p + " Selected: " + choice);
           var info = {
             message: message,
             game: currentGame,
-            con: con
+            con: con,
+            player: p
           }
-          var choice = (con === currentGame.player1) ? currentGame.p1Selected : currentGame.p2Selected;
-          var p = (con === currentGame.player1) ? "1" : "2";
-          console.log("Player" + p + " Selected: " + choice);
           m = JSON.stringify(info);
           //console.log(m);
           ws.send(m);
+        }
+        else if (key === "RM_"){
+          currentGame.setPSelected(con, undefined);
+          var choice = currentGame.getPSelected(con);
+          var p = (con === currentGame.player1) ? "A" : "B";
+          console.log("Player " + p + "'s selecton has been cleared to: " + choice);
+          console.log(currentGame.getPSelected(con));
+        }
+        else if (key === "CMB"){
+          var place = message.substring(message.indexOf("-")+1, message.indexOf("+"));
+          var guess = message.substring(message.indexOf("+")+1, message.indexOf(">"));
+          var pl = message.substring(message.indexOf(">")+1)
+          console.log("Place of the Guess: " + place + " Guess: " + guess + " Player: " + pl);
+          place = place - 1;
+          if (pl === "A") {
+            currentGame.setCurrentGuessP1(place, guess);
+            console.log(currentGame.getCurrentGuessP1());
+          }
+          else if (pl === "B"){
+            currentGame.setCurrentGuessP2(place, guess);
+            console.log(currentGame.getCurrentGuessP2());
+          }
         }
         else {
           ws.send("Yup, got it. --Your server.");

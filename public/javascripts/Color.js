@@ -24,14 +24,14 @@ Color.prototype.resetColor = function() {
 Color.prototype.generateRandom = function() {
     var rColor = new Color("a");
     var shade = "bahur";
-    var number = (Math.floor(Math.random()*10 + 1));
+    var number = (Math.floor(Math.random()*8 + 1));
     //console.log(number);
     switch(number) {
         case 1:
-            shade = "red";
+            shade = "brown";
             break;
         case 2:
-            shade = "brown";
+            shade = "red";
             break;
         case 3:
             shade = "orange";
@@ -51,15 +51,15 @@ Color.prototype.generateRandom = function() {
         case 8:
             shade = "purple";
             break;
-        case 9:
-            shade = "pink";
-            break;
-        case 10:
-            shade = "grey";
-            break;                 
+        // case 9:
+        //     shade = "pink";
+        //     break;
+        // case 10:
+        //     shade = "grey";
+        //     break;                 
     }
     rColor.setColor(shade);
-    return rColor;
+    return number;
 };
 
 /* Checks if the color of the objects is the same.
