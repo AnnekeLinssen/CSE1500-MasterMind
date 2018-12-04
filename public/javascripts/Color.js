@@ -25,7 +25,7 @@ Color.prototype.generateRandom = function() {
     var rColor = new Color("a");
     var shade = "bahur";
     var number = (Math.floor(Math.random()*10 + 1));
-    console.log(number);
+    //console.log(number);
     switch(number) {
         case 1:
             shade = "red";

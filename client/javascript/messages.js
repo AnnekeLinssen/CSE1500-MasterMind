@@ -1,5 +1,5 @@
 var messages = function () {         
-    var socket = new WebSocket("ws://192.168.2.1:3000");
+    var socket = new WebSocket("ws://localhost:3000");
     socket.onmessage = function(event){
         console.log(event.data);
         //document.getElementById("hello").innerHTML = event.data;

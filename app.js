@@ -43,7 +43,7 @@ wss.on("connection", function(ws) {
     }, 1000);
 
     var player = gameStats.newPlayerID();
-    console.log(gameStats.totalPlayers + "\n\n");
+    //console.log(gameStats.totalPlayers + "\n\n");
 
 
     var websockets = {};
@@ -57,12 +57,12 @@ wss.on("connection", function(ws) {
    
     if (gameStats.isPlayerAvailable()){
       currentGame = new Game(player, gameStats.newGameID());
-      console.log("IF");
+      //console.log("IF");
     }
     else {
-      console.log("elseef");
+      //console.log("elseef");
       currentGame.startGame(player);
-      console.log("else");
+      //console.log("else");
     }
     //let bahur = gameStats.totalGames++;
     //con.id = bahur;
@@ -79,9 +79,11 @@ wss.on("connection", function(ws) {
         console.log("[LOG] " + message);
     });
 
-    console.log("Player %s placed in game %s", player, currentGame.gameID);
+    console.log("\nPlayer %s placed in game %s\n", player, currentGame.gameID);
 });
 
-server.listen(port);
+server.listen(port, function (){
+  console.log("Server Started. Listening on port " + port + "...");
+});
 
 
