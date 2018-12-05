@@ -91,7 +91,7 @@ wss.on("connection", function(ws, req) {
           }
       }
       return true;
-      };
+    };
     
     ws.on("message", function incoming(message) {
         console.log("\t[LOG] " + message);
@@ -110,6 +110,7 @@ wss.on("connection", function(ws, req) {
           //console.log(m);
           ws.send(m);
         }
+
         else if (key === "C_C"){
           currentGame.setPSelected(con, message.substring(4));
           
@@ -126,6 +127,7 @@ wss.on("connection", function(ws, req) {
           //console.log(m);
           ws.send(m);
         }
+
         else if (key === "RM_"){
           currentGame.setPSelected(con, "undefined");
           var choice = currentGame.getPSelected(con);
@@ -133,6 +135,7 @@ wss.on("connection", function(ws, req) {
           console.log("Player " + p + "'s selection has been cleared to: " + choice);
           console.log(currentGame.getPSelected(con));
         }
+        
         else if (key === "CMB"){
           var place = message.substring(message.indexOf("-")+1, message.indexOf("+"));
           var guess = message.substring(message.indexOf("+")+1, message.indexOf(">"));
@@ -147,10 +150,15 @@ wss.on("connection", function(ws, req) {
             currentGame.setCurrentGuessP2(place, guess);
             console.log(currentGame.getCurrentGuessP2());
           }
+
           if (checkCrackable(currentGame, pl)) {
-            console.log("Crack button should enable again...")
-            $("#Crack").prop("disabled", false);
-        };   
+            console.log("Crack button is now enabled.")
+            var info = {
+              message: "CRA_THE_CRACK_BUTTON_SHOULD_ENABLE"
+            }
+            m = JSON.stringify(info);
+            ws.send(m);
+          }   
         }
         else if (key === "CLR") {
           currentGame.clearPlayerGuess(con);

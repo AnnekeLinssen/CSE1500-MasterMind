@@ -47,12 +47,10 @@ var messages = function () {
     /* Creating our server using Websockets. */
     var socket = new WebSocket("ws://localhost:3000");
 
-    $("#Crack").prop("disabled", true);
+    $("#Crack").attr("disabled", "disabled");
 
     /* When the crackbutton is clicked, do nothing? */
     $('#Crack').on("click", function () {
-        //TODO disable crackbutton by default
-        //TODO when value in array is changed, check if any of them are 0, if none are 0 enable crack button
         //TODO if it's then clicked, send message to server and compare player input to CMB
         //TODO send back results
         socket.send("Is this sent???");
@@ -82,6 +80,10 @@ var messages = function () {
                 }
                 document.getElementById("C_"+data.message.substring(4)).style.backgroundColor = "darkgrey";
 
+            }
+            else if (key === "CRA") {
+                console.log("Crack button will enable now...");
+                $("#Crack").prop("disabled", false);
             }
         }
         catch {
