@@ -82,10 +82,19 @@ wss.on("connection", function(ws, req) {
     //websockets[con.id] = game;
     //websockets[con.id] = currentGame;
 
-    
+    function checkCrackable (plh, player) {
+      currentGuessPlayer = (player === "A") ? plh.currentGuessP1 : plh.currentGuessP2;
+      console.log(currentGuessPlayer);
+      for (var i = 0; i < 4; i++) {
+          if(currentGuessPlayer[i] === 0) {
+              return false;
+          }
+      }
+      return true;
+      };
     
     ws.on("message", function incoming(message) {
-        console.log("[LOG] " + message);
+        console.log("\t[LOG] " + message);
         var key = message.substring(0,3);
         if (key === "C_S"){
 
@@ -97,7 +106,7 @@ wss.on("connection", function(ws, req) {
             player: p
           }
           
-          m = JSON.stringify(info);
+          var m = JSON.stringify(info);
           //console.log(m);
           ws.send(m);
         }
@@ -118,10 +127,10 @@ wss.on("connection", function(ws, req) {
           ws.send(m);
         }
         else if (key === "RM_"){
-          currentGame.setPSelected(con, undefined);
+          currentGame.setPSelected(con, "undefined");
           var choice = currentGame.getPSelected(con);
           var p = (con === currentGame.player1) ? "A" : "B";
-          console.log("Player " + p + "'s selecton has been cleared to: " + choice);
+          console.log("Player " + p + "'s selection has been cleared to: " + choice);
           console.log(currentGame.getPSelected(con));
         }
         else if (key === "CMB"){
@@ -138,6 +147,16 @@ wss.on("connection", function(ws, req) {
             currentGame.setCurrentGuessP2(place, guess);
             console.log(currentGame.getCurrentGuessP2());
           }
+          if (checkCrackable(currentGame, pl)) {
+            console.log("Crack button should enable again...")
+            $("#Crack").prop("disabled", false);
+        };   
+        }
+        else if (key === "CLR") {
+          currentGame.clearPlayerGuess(con);
+          var pl = (con === currentGame.getPlayerOne()) ? "A" : "B";
+          var gss = (con === currentGame.getPlayerOne()) ? currentGame.getCurrentGuessP1() : currentGame.getCurrentGuessP2();
+          console.log("Cleared guess  for player " + pl + " to " + gss);
         }
         else {
           ws.send("Yup, got it. --Your server.");

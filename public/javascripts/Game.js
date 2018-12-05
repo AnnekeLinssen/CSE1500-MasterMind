@@ -18,6 +18,15 @@ function Game(player, gameID) {
     this.currentGuessP2 = [0,0,0,0];
 };
 
+Game.prototype.clearPlayerGuess = function (p) {
+    if (p === this.player1) {
+        this.currentGuessP1 = [0,0,0,0];
+    }
+    else if ( p === this.player2) {
+        this.currentGuessP2 = [0,0,0,0];
+    }   
+}
+
 Game.prototype.getCurrentGuessP1 = function () {
     return this.currentGuessP1;
 };
@@ -44,10 +53,10 @@ Game.prototype.setCombination = function(combination) {
 };
 
 Game.prototype.getPSelected = function (p) {
-    if (p === this.player1) {
+    if (p === "A") {
         return this.p1Selected;
     }
-    else if (p === this.player2) {
+    else if (p === "B") {
         return this.p2Selected;
     }
     return "undefined";
