@@ -135,7 +135,7 @@ wss.on("connection", function(ws, req) {
           console.log("Player " + p + "'s selection has been cleared to: " + choice);
           console.log(currentGame.getPSelected(con));
         }
-        
+
         else if (key === "CMB"){
           var place = message.substring(message.indexOf("-")+1, message.indexOf("+"));
           var guess = message.substring(message.indexOf("+")+1, message.indexOf(">"));
@@ -165,6 +165,11 @@ wss.on("connection", function(ws, req) {
           var pl = (con === currentGame.getPlayerOne()) ? "A" : "B";
           var gss = (con === currentGame.getPlayerOne()) ? currentGame.getCurrentGuessP1() : currentGame.getCurrentGuessP2();
           console.log("Cleared guess  for player " + pl + " to " + gss);
+        }
+        else if (key === "CRC") {
+          //TODO set this guess to previous guesses
+          var p = (con === currentGame.player1) ? "A" : "B";
+          currentGame.getPSelected(p)
         }
         else {
           ws.send("Yup, got it. --Your server.");

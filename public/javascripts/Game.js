@@ -62,7 +62,6 @@ Game.prototype.getPSelected = function (p) {
     return "undefined";
 }
 
-
 Game.prototype.setPSelected = function (p, s) {
     if (p === this.player1) {
         this.p1Selected = s;
@@ -71,7 +70,6 @@ Game.prototype.setPSelected = function (p, s) {
         this.p2Selected = s;
     }
 }
-
 
 /* Generates a random combination of four distinct Colors. */
 Game.prototype.generateCombination = function() {
@@ -108,7 +106,6 @@ Game.prototype.getPlayerOne = function () {
     return this.player1;
 }
 
-
 Game.prototype.getPlayerTwo = function () {
     return this.player2;
 }
@@ -123,7 +120,7 @@ Game.prototype.getPlayer = function (p) {
     return undefined;
 };
 
-Game.prototype.messageBothPlayers = function (message,p1, p2) {
+Game.prototype.messageBothPlayers = function (message, p1, p2) {
 
     this.player1.send(message + p2.toString());
     this.player2.send(message + p1.toString());
