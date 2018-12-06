@@ -1,6 +1,6 @@
 //import Game from "../../public/javascripts/Game";
 
-
+var cracked = false;
 
 var messages = function () {   
     function updatePlayerGuess (place, guess, player) {
@@ -54,6 +54,13 @@ var messages = function () {
         socket.send("RM_RESET_SELECTED_COLOR_2");
     };
 
+    /* Sets the solution as the current guess and disables all buttons. */
+    function showSolution () {
+        $("#Crack").prop("disabled", true);
+        $("#clear_selection").prop("disabled", true);
+        socket.send("STS_SHOW_THE_SOLUTION");
+    }
+
     /* Creating our server using Websockets. */
     var socket = new WebSocket("ws://localhost:3000");
 
@@ -66,8 +73,13 @@ var messages = function () {
     $('#Crack').on("click", function () {
         //TODO if it's then clicked, send message to server and compare player input to CMB
         //TODO send back results
-        socket.send("CRC_TRY_CRACKING_THE_CODE");
-        console.log("Sending your guess to the server...");
+        if(!cracked) {
+            socket.send("CRC_TRY_CRACKING_THE_CODE");
+            console.log("Sending your guess to the server...");
+        }
+        else {
+            console.log("The code has been cracked. No more guesses can be made.");
+        }
     });
 
     socket.onmessage = function(event){
@@ -98,12 +110,51 @@ var messages = function () {
                 console.log("Crack button will enable now...");
                 $("#Crack").prop("disabled", false);
             }
-            // else if (key === "FDB") {
-            //     var place = message.substring(message.indexOf("-")+1, message.indexOf("+"));
-            //     var guess = message.substring(message.indexOf("+")+1, message.indexOf(">"));
-            //     document.getElementById("E" + place + i).style.backgroundColor = "white";
-            //     }
-            //}
+            else if (key === "FDB") {
+                var num;
+                var guess;
+                if (data.player === "A") {
+                    num = data.game.previousGuesses1.attemptsMade;
+                }
+                else {
+                    num = data.game.previousGuesses2.attemptsMade;
+                }
+                var place = 'a';
+                var guess = data.guess;
+                console.log(guess);
+                console.log("num: " + num + " guess: " + guess);
+                for (var i = 0; i < 4; i++) {
+                    console.log("G" + num + place);
+                    console.log(guess[i]);
+                    switch (guess[i]){
+                        case "1": document.getElementById("G" + num + place).style.backgroundColor = "brown"; break;
+                        case "2": document.getElementById("G" + num + place).style.backgroundColor = "red"; break;
+                        case "3": document.getElementById("G" + num + place).style.backgroundColor = "orange"; break;
+                        case "4": document.getElementById("G" + num + place).style.backgroundColor = "yellow"; break;
+                        case "5": document.getElementById("G" + num + place).style.backgroundColor = "green"; break;
+                        case "6": document.getElementById("G" + num + place).style.backgroundColor = "#40E0D0"; break;
+                        case "7": document.getElementById("G" + num + place).style.backgroundColor = "blue"; break;
+                        case "8": document.getElementById("G" + num + place).style.backgroundColor = "purple"; break;
+                    }
+                    switch (place) {
+                        case "a": place = "b"; break;
+                        case "b": place = "c"; break;
+                        case "c": place = "d"; break;
+                        default: place = "a";
+                    }       
+                }
+                console.log("color: " + data.corrColor)
+                document.getElementById("Cr_Pl_" + num).innerHTML = data.corrPlaces;
+                document.getElementById("Cr_Cl_" + num).innerHTML = data.corrColor;
+                
+                
+                /* Clears the current guess (since the guess has been added to the previous guesses). */
+                for (var i = 1; document.body.contains(document.getElementById("color_selected"+ i)); i++){
+                    document.getElementById("color_selected"+i).style.backgroundColor = "white";
+                }
+                socket.send("CLR_ARRAY");
+                }
+
             else if (key === "SRG") {
                 console.log("STARTING THE GAME........");
                 //$("#game_body").attr("disabled", false);
@@ -111,28 +162,62 @@ var messages = function () {
                 //$("#waiting_screen").attr("disabled", true);
                 $("#waiting_screen").hide();
             }
+            else if (key === "WIN") {
+                console.log("All buttons will disable.")
+                $("#Crack").prop("disabled", true);
+                $("#clear_selection").prop("disabled", true);
+                cracked = true;
+                socket.send("WON_OTHER_PLAYER_IS_A_LOSER");
+                alert("Congratulations! You've cracked the code and won the game!");
+                
+            }
+            else if (key === "LSR") {
+                $("#Crack").prop("disabled", true);
+                $("#clear_selection").prop("disabled", true);
+                alert("Too bad; the other player cracked the code first. You lost the game.");
+            }
+            else if (key === "GG_") {
+                console.log("Connection to the server is closed now.")
+                socket.close();
+            }
         }
-        catch {
-            console.log(event.data);
+        catch (err) {
+            console.log(err.message);
         }
         
     };
 
+
     $("div.color_selection").on("click", function () {
-        socket.send("C_S " + $(this).attr("id").substring(14))
-        //console.log($(this).attr("id").substring(14));
+        if (!cracked) {
+            socket.send("C_S " + $(this).attr("id").substring(14))
+            //console.log($(this).attr("id").substring(14));
+        }
+        else {
+            console.log("The code has been cracked. No more guesses can be made.");
+        }
     });
 
     $('div[id^="C_"]').on("click", function () {
-        socket.send("C_C " + $(this).attr("id").substring(2));
-        console.log("C_C " + $(this).attr("id").substring(2));
+        if (!cracked) {
+            socket.send("C_C " + $(this).attr("id").substring(2));
+            console.log("C_C " + $(this).attr("id").substring(2));
+        }
+        else {
+            console.log("The code has been cracked. No more guesses can be made.");
+        }
     });
 
     $("#clear_selection").on("click", function (){
-        for (var i = 1; document.body.contains(document.getElementById("color_selected"+ i)); i++){
-            document.getElementById("color_selected"+i).style.backgroundColor = "white";
+        if (!cracked) {
+            for (var i = 1; document.body.contains(document.getElementById("color_selected"+ i)); i++){
+                document.getElementById("color_selected"+i).style.backgroundColor = "white";
+            }
+            socket.send("CLR_ARRAY");
         }
-        socket.send("CLR_ARRAY");
+        else {
+            console.log("The code has been cracked. No more guesses can be made.");
+        }
     });
 
     

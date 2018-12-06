@@ -170,10 +170,6 @@ wss.on("connection", function(ws, req) {
           }   
         }
         else if (key === "CLR") {
-
-
-
-
           currentGame.clearPlayerGuess(con);
           var pl = (con === currentGame.getPlayerOne()) ? "A" : "B";
           var gss = (con === currentGame.getPlayerOne()) ? currentGame.getCurrentGuessP1() : currentGame.getCurrentGuessP2();
@@ -181,28 +177,66 @@ wss.on("connection", function(ws, req) {
         }
         else if (key === "CRC") {
           var p = (con === currentGame.player1) ? "A" : "B";
+          var corrPlaces;
+          var corrColor;
           if(p === "A") {
             currentGame.previousGuesses1.setNextAttempt(currentGame.currentGuessP1);
             console.log("The guess "+ currentGame.currentGuessP1 + " Has been added to Player1's PreviousGuesses. " + JSON.stringify(currentGame.previousGuesses1));
 
-            var corrPlaces = currentGame.placesCorrect(currentGame.currentGuessP1, currentGame.getCombination());
-            var corrColor = currentGame.colorsCorrect(currentGame.currentGuessP1, currentGame.getCombination()) - corrPlaces;
+            corrPlaces = currentGame.placesCorrect(currentGame.currentGuessP1, currentGame.getCombination());
+            corrColor = currentGame.colorsCorrect(currentGame.currentGuessP1, currentGame.getCombination()) - corrPlaces;
           }
           else {
             currentGame.previousGuesses2.setNextAttempt(currentGame.currentGuessP2);
             console.log("The guess "+ currentGame.currentGuessP2 + " Has been added to Player2's PreviousGuesses." + JSON.stringify(currentGame.previousGuesses2));
 
-            var corrPlaces = currentGame.placesCorrect(currentGame.currentGuessP2, currentGame.getCombination());
-            var corrColor = currentGame.colorsCorrect(currentGame.currentGuessP2, currentGame.getCombination()) - corrPlaces;
+            corrPlaces = currentGame.placesCorrect(currentGame.currentGuessP2, currentGame.getCombination());
+            corrColor = currentGame.colorsCorrect(currentGame.currentGuessP2, currentGame.getCombination()) - corrPlaces;
           }
                     
           console.log("color+place correct: " + corrPlaces + " and color correct: " + corrColor);
           console.log(currentGame.getCombination());
+          
+          var info = {
+            message: "FDB_FEEDBACK_ON_PREVIOUS_GUESS",
+            game: currentGame,
+            con: con,
+            player: p,
+            corrPlaces: corrPlaces,
+            corrColor: corrColor,
+            guess: (p == "A") ? currentGame.previousGuesses1.getAttempti(currentGame.previousGuesses1.attemptsMade - 1) : currentGame.previousGuesses2.getAttempti(currentGame.previousGuesses2.attemptsMade - 1)
+          }
+          console.log("G : " + info.guess + " INDEX:  " +(currentGame.previousGuesses2.attemptsMade - 1));
+          m = JSON.stringify(info);
+          ws.send(m);
+
+          if (corrPlaces == 4) {
+            var info = {
+              message: "WIN_PLAYER_CRACKED_COMBINATION",
+              game: currentGame,
+              con: con,
+              player: p,
+            }
+            m = JSON.stringify(info);
+            ws.send(m);
+          }
+        }
+        else if (key === "WON") {
+          var p = (con === currentGame.player1) ? currentGame.player2 : currentGame.player1;
+          var info = {
+            message: "LSR_YOU_LOST_THE_GAME",
+            game: currentGame,
+            con: con,
+            player: p,
+          };
+          p.send(JSON.stringify(info));
+          info.message = "GG_But it's over now.";
+          currentGame.messageToPlayers(JSON.stringify(info));
         }
         else {
           ws.send("Yup, got it. --Your server.");
         }
-
+      
     });
 
     console.log("\nPlayer %s placed in game %s\n", player, currentGame.gameID);
