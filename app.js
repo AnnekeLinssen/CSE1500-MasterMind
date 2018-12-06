@@ -161,15 +161,34 @@ wss.on("connection", function(ws, req) {
           }   
         }
         else if (key === "CLR") {
+
+
+
+
           currentGame.clearPlayerGuess(con);
           var pl = (con === currentGame.getPlayerOne()) ? "A" : "B";
           var gss = (con === currentGame.getPlayerOne()) ? currentGame.getCurrentGuessP1() : currentGame.getCurrentGuessP2();
           console.log("Cleared guess  for player " + pl + " to " + gss);
         }
         else if (key === "CRC") {
-          //TODO set this guess to previous guesses
           var p = (con === currentGame.player1) ? "A" : "B";
-          currentGame.getPSelected(p)
+          if(p === "A") {
+            currentGame.previousGuesses1.setNextAttempt(currentGame.currentGuessP1);
+            console.log("The guess "+ currentGame.currentGuessP1 + " Has been added to Player1's PreviousGuesses. " + JSON.stringify(currentGame.previousGuesses1));
+
+            var corrPlaces = currentGame.placesCorrect(currentGame.currentGuessP1, currentGame.getCombination());
+            var corrColor = currentGame.colorsCorrect(currentGame.currentGuessP1, currentGame.getCombination()) - corrPlaces;
+          }
+          else {
+            currentGame.previousGuesses2.setNextAttempt(currentGame.currentGuessP2);
+            console.log("The guess "+ currentGame.currentGuessP2 + " Has been added to Player2's PreviousGuesses." + JSON.stringify(currentGame.previousGuesses2));
+
+            var corrPlaces = currentGame.placesCorrect(currentGame.currentGuessP2, currentGame.getCombination());
+            var corrColor = currentGame.colorsCorrect(currentGame.currentGuessP2, currentGame.getCombination()) - corrPlaces;
+          }
+                    
+          console.log("color+place correct: " + corrPlaces + " and color correct: " + corrColor);
+          console.log(currentGame.getCombination());
         }
         else {
           ws.send("Yup, got it. --Your server.");

@@ -53,7 +53,7 @@ var messages = function () {
     $('#Crack').on("click", function () {
         //TODO if it's then clicked, send message to server and compare player input to CMB
         //TODO send back results
-        socket.send("Is this sent???");
+        socket.send("CRC_TRY_CRACKING_THE_CODE");
         console.log("Sending message to the server...");
     });
 

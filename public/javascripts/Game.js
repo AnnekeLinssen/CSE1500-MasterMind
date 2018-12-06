@@ -9,8 +9,8 @@ function Game(player, gameID) {
     this.player1 = player;
     this.player2 = null;
     this.combination = "still unset";
-    this.previousGuesses1;
-    this.previousGuesses2;
+    this.previousGuesses1 = new PreviousGuesses;
+    this.previousGuesses2 = new PreviousGuesses;
     this.playable = false;
     this.p1Selected = "undefined";
     this.p2Selected = "undefined";
@@ -90,12 +90,7 @@ Game.prototype.startGame = function(player) {
     //console.log("3");
     this.combination = rCom.generateRandomCombination();
     //console.log("4");
-    this.previousGuesses1 = new PreviousGuesses();
-    //console.log("5");
-    this.previousGuesses2 = new PreviousGuesses();
-    //console.log("6");
     this.playable = true;
-    //console.log("7");
 };
 
 Game.prototype.isPlayable = function() {
@@ -124,6 +119,29 @@ Game.prototype.messageBothPlayers = function (message, p1, p2) {
 
     this.player1.send(message + p2.toString());
     this.player2.send(message + p1.toString());
+};
+
+/* Returns the amount of colors that were guessed correctly, but are still in the wrong position */
+Game.prototype.colorsCorrect = function(guess, combination) {
+    var numCorr = 0;
+    for(var i = 0; i <= 3; i++) {
+        for(var j = 0; j <= 3; j++) {
+            if(guess[i] === combination[j]) {
+                numCorr++;
+            }
+        }
+    }
+    return numCorr;
+};
+
+Game.prototype.placesCorrect = function (guess, combination) {
+    var numCorr = 0;
+    for(var i = 0; i < 4; i++) {
+        if (guess[i] === combination[i]) {
+            numCorr++;
+        }
+    }
+    return numCorr;
 };
 
 module.exports = Game;
