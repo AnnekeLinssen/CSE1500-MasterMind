@@ -125,6 +125,7 @@ Game.prototype.messageToPlayers = function (message) {
 
     this.player1.send(message);
     this.player2.send(message);
+    console.log("[G LOG]" + message);
 };
 
 /* Returns the amount of colors that were guessed correctly, but are still in the wrong position */

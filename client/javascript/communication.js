@@ -1,6 +1,6 @@
 //import Game from "../../public/javascripts/Game";
 
-
+var gameStart = false;
 
 var messages = function () {   
     function updatePlayerGuess (place, guess, player) {
@@ -57,17 +57,20 @@ var messages = function () {
     /* Creating our server using Websockets. */
     var socket = new WebSocket("ws://localhost:3000");
 
-    $("#game_body").attr("disabled", "disabled");
-    $("#game_body").hide();
+    //$("#game_body").attr("disabled", true);
 
-    $("#Crack").attr("disabled", "disabled");
+    if (!gameStart) {
+        $("#game_body").hide();
+
+        $("#Crack").attr("disabled", "disabled");    
+    }
 
     /* When the crackbutton is clicked, do nothing? */
     $('#Crack').on("click", function () {
         //TODO if it's then clicked, send message to server and compare player input to CMB
         //TODO send back results
         socket.send("CRC_TRY_CRACKING_THE_CODE");
-        console.log("Sending message to the server...");
+        console.log("Sending your guess to the server...");
     });
 
     socket.onmessage = function(event){
@@ -98,8 +101,19 @@ var messages = function () {
                 console.log("Crack button will enable now...");
                 $("#Crack").prop("disabled", false);
             }
-            else if (key === "FDB") {
-
+            // else if (key === "FDB") {
+            //     var place = message.substring(message.indexOf("-")+1, message.indexOf("+"));
+            //     var guess = message.substring(message.indexOf("+")+1, message.indexOf(">"));
+            //     document.getElementById("E" + place + i).style.backgroundColor = "white";
+            //     }
+            //}
+            else if (key === "SRG") {
+                console.log("STARTING THE GAME........");
+                //$("#game_body").attr("disabled", false);
+                $("#game_body").show();
+                //$("#waiting_screen").attr("disabled", true);
+                $("#waiting_screen").hide();
+                gameStart = true;
             }
         }
         catch {
