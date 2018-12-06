@@ -71,6 +71,7 @@ wss.on("connection", function(ws, req) {
       instance.player2 = "B";
       // currentGame.messageBothPlayers(instance.type, instance.player1, instance.player2);
       console.log("\nCombination is: " + JSON.stringify(currentGame.getCombination()));
+      currentGame.messageToPlayers("SRT_GAME_IS_ABLE_TO_START");
       //console.log("else");
     }
     //let bahur = gameStats.totalGames++;

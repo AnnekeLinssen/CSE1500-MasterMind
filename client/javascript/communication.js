@@ -47,6 +47,9 @@ var messages = function () {
     /* Creating our server using Websockets. */
     var socket = new WebSocket("ws://localhost:3000");
 
+    $("#game_body").attr("disabled", "disabled");
+    $("#game_body").hide();
+
     $("#Crack").attr("disabled", "disabled");
 
     /* When the crackbutton is clicked, do nothing? */

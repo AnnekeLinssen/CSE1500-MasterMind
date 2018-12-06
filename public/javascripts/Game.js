@@ -121,6 +121,12 @@ Game.prototype.messageBothPlayers = function (message, p1, p2) {
     this.player2.send(message + p1.toString());
 };
 
+Game.prototype.messageToPlayers = function (message) {
+
+    this.player1.send(message);
+    this.player2.send(message);
+};
+
 /* Returns the amount of colors that were guessed correctly, but are still in the wrong position */
 Game.prototype.colorsCorrect = function(guess, combination) {
     var numCorr = 0;
