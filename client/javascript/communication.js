@@ -7,6 +7,10 @@ var messages = function () {
         socket.send("CMB_SET-" + place + "+" + guess + ">" + player);
     }
 
+    function updatePreviousGuess (place, guess, player) {
+
+    }
+
     /* Sets the color for the player (passed as a parameter) in game plh (placeholder) to the given color */
     function setColors (plh, color, player) {
         (player === "A") ? console.log(plh.p1Selected) : console.log(plh.p2Selected);    // Color that was selected by the player
@@ -14,8 +18,14 @@ var messages = function () {
         if (player === "A" && plh.p1Selected != "undefined") {
             processColor(color, place, player, plh.p1Selected);
         }
+        else if (player === "A" && plh.p1Selected == "undefined") {
+            processColor(color, place, player, 0);
+        }
         else if (player === "B" && plh.p2Selected != "undefined") {
             processColor(color, place, player, plh.p2Selected);
+        }
+        else if (player === "B" && plh.p2Selected == "undefined") {
+            processColor(color, place, player, 0);
         }
         console.log("ELEMENT ID: " + color.id.substring(14));
         clearSelectionChoice();
@@ -85,6 +95,9 @@ var messages = function () {
                 console.log("Crack button will enable now...");
                 $("#Crack").prop("disabled", false);
             }
+            else if (key === "FDB") {
+
+            }
         }
         catch {
             console.log(event.data);
@@ -113,5 +126,3 @@ var messages = function () {
 
 };
 $(document).ready(messages);
-
-

@@ -9,8 +9,8 @@ function Game(player, gameID) {
     this.player1 = player;
     this.player2 = null;
     this.combination = "still unset";
-    this.previousGuesses1 = new PreviousGuesses;
-    this.previousGuesses2 = new PreviousGuesses;
+    this.previousGuesses1 = new PreviousGuesses();
+    this.previousGuesses2 = new PreviousGuesses();
     this.playable = false;
     this.p1Selected = "undefined";
     this.p2Selected = "undefined";
