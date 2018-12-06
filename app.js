@@ -76,7 +76,7 @@ wss.on("connection", function(ws, req) {
           message: "SRG_GAME_IS_ABLE_TO_START",
         };
         m = JSON.stringify(m);
-        currentGame.messageToPlayers();
+        currentGame.messageToPlayers(m);
       }, 1000);
 
 
