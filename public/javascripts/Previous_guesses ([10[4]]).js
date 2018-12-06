@@ -41,8 +41,8 @@ PreviousGuesses.prototype.increaseAttempts = function() {
 /* Sets the new Four_colors for the next available spot in the array.
 Throws an error if i is out of bounds for the array (10 guesses have been made). */
 PreviousGuesses.prototype.setNextAttempt = function(attempt) {
-    PreviousGuesses.setAttempti(this.attemptsMade, attempt);
-    PreviousGuesses.increaseAttempts;
+    this[this.attemptsMade] = attempt;
+    this.attemptsMade++;
 };
 
 

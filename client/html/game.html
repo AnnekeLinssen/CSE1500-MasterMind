@@ -10,119 +10,159 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="javascript/concede.js" ></script>
 <script type="text/javascript" src="javascript/rules.js" ></script>
-<script type="text/javascript" src="javascript/colors.js"></script>
-<script type="text/javascript" src="javascript/messages.js"></script>
+<!--<script type="text/javascript" src="javascript/colors.js"></script>-->
+<!---
+<script type="text/javascript" src="javascript/greeting.js"></script>
+-->
+<script type="text/javascript" src="/javascript/communication.js"></script>
 
 </head>
 
 <body>
-	<div id="header_introduction">
-		<div id="logo">
-			<h3>Mastermind</h3>
+	<div id="waiting_screen"> WAITING FOR AN OPPONENT</div>
+	<div id="game_body">
+		<div id="header_introduction">
+			<div id="logo">
+				<h3>Mastermind</h3>
+			</div>
+			<div id="slogan">
+				<h4>Can you crack the code?</h4>
+			</div>
 		</div>
-		<div id="slogan">
-			<h4>Can you crack the code?</h4>
-		</div>
-	</div>
-	<div id="current_guess">
-		<div id="color_selections">
-			<a>Current Guess</a>
+		<div id="current_guess">
+			<div id="color_selections">
+				<a>Current Guess</a>
+				<br>
+				<div class="color_selection" style="display:inline-block" id="color_selected1">Ga</div>
+				<div class="color_selection" style="display:inline-block" id="color_selected2">Gb</div>
+				<div class="color_selection" style="display:inline-block" id="color_selected3">Gc</div>
+				<div class="color_selection" style="display:inline-block" id="color_selected4">Gd</div>
+				<div style="display:inline-block">
+					<button id="Crack">CRACK</button>
+				</div>
+			</div>
+			
+			<div id="color_choices">
+				<div style="float:left" id="C_1">C1</div>
+				<div style="float:left" id="C_2">C2</div>
+				<div style="float:left" id="C_3">C3</div>
+				<div style="float:left" id="C_4">C4</div>
+				<div style="float:left" id="C_5">C5</div>
+				<div style="float:left" id="C_6">C6</div>
+				<div style="float:left" id="C_7">C7</div>
+				<div style="float:left" id="C_8">C8</div>
+			</div>
 			<br>
-			<div style="display:inline-block" id="color_selected1">
-				Ga
-			</div>
-			<div style="display:inline-block" id="color_selected2">
-				Gb
-			</div>
-			<div style="display:inline-block" id="color_selected3">
-				Gc
-			</div>
-			<div style="display:inline-block" id="color_selected4">
-				Gd
-			</div>
-			<div style="display:inline-block" id="Crack">
-				<button>CRACK</button>
-			</div>
+			<button id="clear_selection">Clear Selection</button>
+			<a>Timer: XX:XX</a>
 		</div>
-		
-		<div id="color_choices">
-			<div style="float:left" id="C1">C1</div>
-			<div style="float:left" id="C2">C2</div>
-			<div style="float:left" id="C3">C3</div>
-			<div style="float:left" id="C4">C4</div>
-			<div style="float:left" id="C5">C5</div>
-			<div style="float:left" id="C6">C6</div>
-			<div style="float:left" id="C7">C7</div>
-			<div id="C8">C8</div>
-		</div>
-		<a>Timer: XX:XX</a>
-	</div>
-	<br>
-	<div style="margin-left: auto" id="previous_guesses">
-		<a>Previous Guesses</a>
 		<br>
-		<div id="guess1">
-			<div style="float:left" id="G1a">G1a</div>
-			<div style="float:left" id="G1b">G1b</div>
-			<div style="float:left" id="G1c">G1c</div>
-			<div id="G1d">G1d</div>
+		<div style="margin-left: auto" id="previous_guesses">
+			<a>Previous Guesses</a>
+			<br>
+			<div id="guess1">
+				<div style="float:left" id="G1a">G1a</div>
+				<div style="float:left" id="G1b">G1b</div>
+				<div style="float:left" id="G1c">G1c</div>
+				<div style="float:left" id="G1d">G1d</div>
+				<div style="float:left" id="E1a">E1a</div>
+				<div style="float:left" id="E1b">E1b</div>
+				<div style="float:left" id="E1c">E1c</div>
+				<div id="E1d">E1d</div>
+			</div>
+			<div id="guess2">
+				<div style="float:left" id="G2a">G2a</div>
+				<div style="float:left" id="G2b">G2b</div>
+				<div style="float:left" id="G2c">G2c</div>
+				<div style="float:left" id="G2d">G2d</div>
+				<div style="float:left" id="E2a">E2a</div>
+				<div style="float:left" id="E2b">E2b</div>
+				<div style="float:left" id="E2c">E2c</div>
+				<div id="E2d">E2d</div>
+			</div>	
+			<div id="guess3">
+				<div style="float:left" id="G3a">G3a</div>
+				<div style="float:left" id="G3b">G3b</div>
+				<div style="float:left" id="G3c">G3c</div>
+				<div style="float:left" id="G3d">E3d</div>
+				<div style="float:left" id="E3a">E3a</div>
+				<div style="float:left" id="E3b">E3b</div>
+				<div style="float:left" id="E3c">E3c</div>
+				<div id="E3d">E3d</div>
+			</div>
+			<div id="guess4">
+				<div style="float:left" id="G4a">G4a</div>
+				<div style="float:left" id="G4b">G4b</div>
+				<div style="float:left" id="G4c">G4c</div>
+				<div style="float:left" id="G4d">G4d</div>
+				<div style="float:left" id="E4a">E4a</div>
+				<div style="float:left" id="E4b">E4b</div>
+				<div style="float:left" id="E4c">E4c</div>
+				<div id="E4d">E4d</div>
+			</div>
+			<div id="guess5">
+				<div style="float:left" id="G5a">G5a</div>
+				<div style="float:left" id="G5b">G5b</div>
+				<div style="float:left" id="G5c">G5c</div>
+				<div style="float:left" id="G5d">G5d</div>
+				<div style="float:left" id="E5a">E5a</div>
+				<div style="float:left" id="E5b">E5b</div>
+				<div style="float:left" id="E5c">E5c</div>
+				<div id="E5d">E5d</div>
+			</div>	
+			<div id="guess6">
+				<div style="float:left" id="G6a">G6a</div>
+				<div style="float:left" id="G6b">G6b</div>
+				<div style="float:left" id="G6c">G6c</div>
+				<div style="float:left" id="G6d">G6d</div>
+				<div style="float:left" id="E6a">E6a</div>
+				<div style="float:left" id="E6b">E6b</div>
+				<div style="float:left" id="E6c">E6c</div>
+				<div id="E6d">E6d</div>
+			</div>
+			<div id="guess7">
+				<div style="float:left" id="G7a">G7a</div>
+				<div style="float:left" id="G7b">G7b</div>
+				<div style="float:left" id="G7c">G7c</div>
+				<div style="float:left" id="G7d">G7d</div>
+				<div style="float:left" id="E7a">E7a</div>
+				<div style="float:left" id="E7b">E7b</div>
+				<div style="float:left" id="E7c">E7c</div>
+				<div id="E7d">E7d</div>
+			</div>	
+			<div id="guess8">
+				<div style="float:left" id="G8a">G8a</div>
+				<div style="float:left" id="G8b">G8b</div>
+				<div style="float:left" id="G8c">G8c</div>
+				<div style="float:left" id="G8d">G8d</div>
+				<div style="float:left" id="E8a">E8a</div>
+				<div style="float:left" id="E8b">E8b</div>
+				<div style="float:left" id="E8c">E8c</div>
+				<div id="E8d">E8d</div>
+			</div>
+			<div id="guess9">
+				<div style="float:left" id="G9a">G9a</div>
+				<div style="float:left" id="G9b">G9b</div>
+				<div style="float:left" id="G9c">G9c</div>
+				<div style="float:left" id="G9d">G9d</div>
+				<div style="float:left" id="E9a">E9a</div>
+				<div style="float:left" id="E9b">E9b</div>
+				<div style="float:left" id="E9c">E9c</div>
+				<div id="E9d">E9d</div>
+			</div>
+			<div id="guess10">
+				<div style="float:left" id="G10a">G10a</div>
+				<div style="float:left" id="G10b">G10b</div>
+				<div style="float:left" id="G10c">G10c</div>
+				<div style="float:left" id="G10d">G10d</div>
+				<div style="float:left" id="E10a">E10a</div>
+				<div style="float:left" id="E10b">E10b</div>
+				<div style="float:left" id="E10c">E10c</div>
+				<div id="E10d">E10d</div>
+			</div>	
+			<button class="concede_button">I give up! Show me the solution!</button>
+				
 		</div>
-		<div id="guess2">
-			<div style="float:left" id="G2a">G2a</div>
-			<div style="float:left" id="G2b">G2b</div>
-			<div style="float:left" id="G2c">G2c</div>
-			<div id="G2d">G2d</div>
-		</div>	
-		<div id="guess3">
-			<div style="float:left" id="G3a">G3a</div>
-			<div style="float:left" id="G3b">G3b</div>
-			<div style="float:left" id="G3c">G3c</div>
-			<div id="G3d">G3d</div>
-		</div>
-		<div id="guess4">
-			<div style="float:left" id="G4a">G4a</div>
-			<div style="float:left" id="G4b">G4b</div>
-			<div style="float:left" id="G4c">G4c</div>
-			<div id="G4d">G4d</div>
-		</div>
-		<div id="guess5">
-			<div style="float:left" id="G5a">G5a</div>
-			<div style="float:left" id="G5b">G5b</div>
-			<div style="float:left" id="G5c">G5c</div>
-			<div id="G5d">G5d</div>
-		</div>	
-		<div id="guess6">
-			<div style="float:left" id="G6a">G6a</div>
-			<div style="float:left" id="G6b">G6b</div>
-			<div style="float:left" id="G6c">G6c</div>
-			<div id="G6d">G6d</div>
-		</div>
-		<div id="guess7">
-			<div style="float:left" id="G7a">G7a</div>
-			<div style="float:left" id="G7b">G7b</div>
-			<div style="float:left" id="G7c">G7c</div>
-			<div id="G7d">G7d</div>
-		</div>	
-		<div id="guess8">
-			<div style="float:left" id="G8a">G8a</div>
-			<div style="float:left" id="G8b">G8b</div>
-			<div style="float:left" id="G8c">G8c</div>
-			<div id="G8d">G8d</div>
-		</div>
-		<div id="guess9">
-			<div style="float:left" id="G9a">G9a</div>
-			<div style="float:left" id="G9b">G9b</div>
-			<div style="float:left" id="G9c">G9c</div>
-			<div id="G9d">G9d</div>
-		</div>
-		<div id="guess10">
-			<div style="float:left" id="G10a">G10a</div>
-			<div style="float:left" id="G10b">G10b</div>
-			<div style="float:left" id="G10c">G10c</div>
-			<div id="G10d">G10d</div>
-		</div>	
-		<button class="concede_button">I give up! Show me the solution!</button>
-			  
 	</div>
 </body>
 	

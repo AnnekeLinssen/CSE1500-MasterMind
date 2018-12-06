@@ -3,10 +3,10 @@ var c = require("./Color");
 /* Constructor.
 Parameters are 4 Color objects. */
 function Four_colors(colorA, colorB, colorC, colorD) {
-    Four_colors[0] = colorA;
-    Four_colors[1] = colorB;
-    Four_colors[2] = colorC;
-    Four_colors[3] = colorD;
+    this.Four_colors1 = colorA;
+    this.Four_colors2 = colorB;
+    this.Four_colors3 = colorC;
+    this.Four_colors4 = colorD;
 };
 
 // Try to construct the array using a forloop (#askTA)
@@ -44,22 +44,22 @@ Four_colors.prototype.resetAll = function() {
     }
 };
 
-/* Generates a random combination of 4 distinct Color objects and returns these as a Four_colors object. */
+/* Returns a random array of 4 distinct numbers, representing 4 colors. */
 Four_colors.prototype.generateRandomCombination = function() {
-    
     var rC = new c("a");
     var rColor1 = rC.generateRandom();
+    var rColor2; var rColor3; var rColor4;
     do {
         //console.log("a");
-        var rColor2 = rC.generateRandom();
+        rColor2 = rC.generateRandom();
     } while (rColor2 === rColor1);
     do {
-        var rColor3 = rC.generateRandom();
+        rColor3 = rC.generateRandom();
     } while (rColor3 === rColor1 || rColor3 === rColor2);
     do {
-        var rColor4 = rC.generateRandom();
+        rColor4 = rC.generateRandom();
     } while (rColor4 === rColor1 || rColor4 === rColor2 || rColor4 === rColor3);
-    var rCombination = new Four_colors(rColor1, rColor2, rColor3, rColor4);
+    var rCombination = [rColor1, rColor2, rColor3, rColor4];
     return rCombination;
 };
 
