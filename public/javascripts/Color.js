@@ -22,11 +22,8 @@ Color.prototype.resetColor = function() {
 
 /* Generates a random number representing a color. */
 Color.prototype.generateRandom = function() {
-    var rColor = new Color("a");
-    var shade = "bahur";
     var number = (Math.floor(Math.random()*8 + 1));
-    //console.log(number);
-    return number
+    return number;
 };
 
 /* Checks if the color of the objects is the same.

@@ -9,8 +9,8 @@ function Game(player, gameID) {
     this.player1 = player;
     this.player2 = null;
     this.combination = "still unset";
-    this.previousGuesses1 = new PreviousGuesses;
-    this.previousGuesses2 = new PreviousGuesses;
+    this.previousGuesses1 = new PreviousGuesses();
+    this.previousGuesses2 = new PreviousGuesses();
     this.playable = false;
     this.p1Selected = "undefined";
     this.p2Selected = "undefined";
@@ -132,7 +132,7 @@ Game.prototype.colorsCorrect = function(guess, combination) {
     var numCorr = 0;
     for(var i = 0; i <= 3; i++) {
         for(var j = 0; j <= 3; j++) {
-            if(guess[i] === combination[j]) {
+            if(guess[i] == combination[j]) {
                 numCorr++;
             }
         }
@@ -143,7 +143,7 @@ Game.prototype.colorsCorrect = function(guess, combination) {
 Game.prototype.placesCorrect = function (guess, combination) {
     var numCorr = 0;
     for(var i = 0; i < 4; i++) {
-        if (guess[i] === combination[i]) {
+        if (guess[i] == combination[i]) {
             numCorr++;
         }
     }
