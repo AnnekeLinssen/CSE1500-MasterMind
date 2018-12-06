@@ -1,6 +1,6 @@
 //import Game from "../../public/javascripts/Game";
 
-var gameStart = false;
+
 
 var messages = function () {   
     function updatePlayerGuess (place, guess, player) {
@@ -58,12 +58,9 @@ var messages = function () {
     var socket = new WebSocket("ws://localhost:3000");
 
     //$("#game_body").attr("disabled", true);
+    $("#game_body").hide();
 
-    if (!gameStart) {
-        $("#game_body").hide();
-
-        $("#Crack").attr("disabled", "disabled");    
-    }
+    $("#Crack").attr("disabled", "disabled");
 
     /* When the crackbutton is clicked, do nothing? */
     $('#Crack').on("click", function () {
@@ -135,7 +132,6 @@ var messages = function () {
                 $("#game_body").show();
                 //$("#waiting_screen").attr("disabled", true);
                 $("#waiting_screen").hide();
-                gameStart = true;
             }
         }
         catch {
