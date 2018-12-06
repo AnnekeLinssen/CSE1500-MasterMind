@@ -204,14 +204,34 @@ wss.on("connection", function(ws, req) {
             player: p,
             corrPlaces: corrPlaces,
             corrColor: corrColor,
-            guess: (player == "A") ? currentGame.previousGuesses1.getAttempti(currentGame.previousGuesses1.attemptsMade - 1) : currentGame.previousGuesses1.getAttempti(currentGame.previousGuesses2.attemptsMade - 1)
+            guess: (p == "A") ? currentGame.previousGuesses1.getAttempti(currentGame.previousGuesses1.attemptsMade - 1) : currentGame.previousGuesses2.getAttempti(currentGame.previousGuesses2.attemptsMade - 1)
           }
+          console.log("G : " + info.guess + " INDEX:  " +(currentGame.previousGuesses2.attemptsMade - 1));
           m = JSON.stringify(info);
           ws.send(m);
 
           if (corrPlaces == 4) {
-            //do something to say win/loose
+            var info = {
+              message: "WIN_PLAYER_CRACKED_COMBINATION",
+              game: currentGame,
+              con: con,
+              player: p,
+            }
+            m = JSON.stringify(info);
+            ws.send(m);
           }
+        }
+        else if (key === "WON") {
+          var p = (con === currentGame.player1) ? currentGame.player2 : currentGame.player1;
+          var info = {
+            message: "LSR_YOU_LOST_THE_GAME",
+            game: currentGame,
+            con: con,
+            player: p,
+          };
+          p.send(JSON.stringify(info));
+          info.message = "GG_But it's over now.";
+          currentGame.messageToPlayers(JSON.stringify(info));
         }
         else {
           ws.send("Yup, got it. --Your server.");
