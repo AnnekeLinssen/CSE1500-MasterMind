@@ -44,9 +44,8 @@ Four_colors.prototype.resetAll = function() {
     }
 };
 
-/* Generates a random combination of 4 distinct Color objects and returns these as a Four_colors object. */
+/* Returns a random array of 4 distinct numbers, representing 4 colors. */
 Four_colors.prototype.generateRandomCombination = function() {
-    
     var rC = new c("a");
     var rColor1 = rC.generateRandom();
     var rColor2; var rColor3; var rColor4;
@@ -60,7 +59,7 @@ Four_colors.prototype.generateRandomCombination = function() {
     do {
         rColor4 = rC.generateRandom();
     } while (rColor4 === rColor1 || rColor4 === rColor2 || rColor4 === rColor3);
-    var rCombination = new Four_colors(rColor1, rColor2, rColor3, rColor4);
+    var rCombination = [rColor1, rColor2, rColor3, rColor4];
     return rCombination;
 };
 
