@@ -198,6 +198,17 @@ wss.on("connection", function(ws, req) {
                     
           console.log("color+place correct: " + corrPlaces + " and color correct: " + corrColor);
           console.log(currentGame.getCombination());
+          
+          var info = {
+            message: "FDB_FEEDBACK_ON_PREVIOUS_GUESS",
+            game: currentGame,
+            con: con,
+            player: p,
+            pla: corrPlaces,
+            col: corrColor
+          }
+          m = JSON.stringify(info);
+          ws.send(m);
         }
         else {
           ws.send("Yup, got it. --Your server.");

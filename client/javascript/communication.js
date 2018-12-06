@@ -101,12 +101,34 @@ var messages = function () {
                 console.log("Crack button will enable now...");
                 $("#Crack").prop("disabled", false);
             }
-            // else if (key === "FDB") {
-            //     var place = message.substring(message.indexOf("-")+1, message.indexOf("+"));
-            //     var guess = message.substring(message.indexOf("+")+1, message.indexOf(">"));
-            //     document.getElementById("E" + place + i).style.backgroundColor = "white";
-            //     }
-            //}
+            else if (key === "FDB") {
+                if (p == "A") {
+                    var num = currentgame.previousGuesses1.attemptsMade;
+                    var guess = currentgame.previousGuesses1[currentgame.previousGuesses1.attemptsMade - 1];
+
+                }
+                else {
+                    var num = currentgame.previousGuesses2.attemptsMade;
+                    var guess = currentgame.previousGuesses2[currentgame.previousGuesses2.attemptsMade - 1];
+                }
+                var place = 'a';
+                for (var i = 0; i = 3; i++) {
+                    switch (guess[i]){
+                        case "1": document.getElementById("G" + num + place).style.backgroundColor = "brown"; break;
+                        case "1": document.getElementById("G" + num + place).style.backgroundColor = "red"; break;
+                        case "3": document.getElementById("G" + num + place).style.backgroundColor = "orange"; break;
+                        case "4": document.getElementById("G" + num + place).style.backgroundColor = "yellow"; break;
+                        case "5": document.getElementById("G" + num + place).style.backgroundColor = "green"; break;
+                        case "6": document.getElementById("G" + num + place).style.backgroundColor = "#40E0D0"; break;
+                        case "7": document.getElementById("G" + num + place).style.backgroundColor = "blue"; break;
+                        case "8": document.getElementById("G" + num + place).style.backgroundColor = "purple"; break;
+                    }
+                    place = String.fromCharCode(place.charCodeAt(0) + 1);        
+                }
+
+                document.getElementById("Cr_Pl_" + num).innerHTML = corrPlaces;
+                document.getElementById("Cr_Co_" + num).innerHTML = corrColor;            
+                }
             else if (key === "SRG") {
                 console.log("STARTING THE GAME........");
                 //$("#game_body").attr("disabled", false);
