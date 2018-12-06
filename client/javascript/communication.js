@@ -99,17 +99,19 @@ var messages = function () {
                 $("#Crack").prop("disabled", false);
             }
             else if (key === "FDB") {
-                if (p == "A") {
-                    var num = currentgame.previousGuesses1.attemptsMade;
-                    var guess = currentgame.previousGuesses1[currentgame.previousGuesses1.attemptsMade - 1];
-
+                var num;
+                var guess;
+                if (data.player === "A") {
+                    num = data.game.previousGuesses1.attemptsMade;
                 }
                 else {
-                    var num = currentgame.previousGuesses2.attemptsMade;
-                    var guess = currentgame.previousGuesses2[currentgame.previousGuesses2.attemptsMade - 1];
+                    num = data.game.previousGuesses2.attemptsMade;
                 }
                 var place = 'a';
-                for (var i = 0; i = 3; i++) {
+                var guess = data.guess;
+                console.log(guess);
+                console.log("num: " + num + " guess: " + guess);
+                for (var i = 0; i < 4; i++) {
                     switch (guess[i]){
                         case "1": document.getElementById("G" + num + place).style.backgroundColor = "brown"; break;
                         case "1": document.getElementById("G" + num + place).style.backgroundColor = "red"; break;
@@ -120,12 +122,25 @@ var messages = function () {
                         case "7": document.getElementById("G" + num + place).style.backgroundColor = "blue"; break;
                         case "8": document.getElementById("G" + num + place).style.backgroundColor = "purple"; break;
                     }
-                    place = String.fromCharCode(place.charCodeAt(0) + 1);        
+                    switch (place) {
+                        case "a": place = "b";
+                        case "b": place = "c";
+                        case "c": place = "d";
+                        default: place = "a";
+                    }       
                 }
-
-                document.getElementById("Cr_Pl_" + num).innerHTML = corrPlaces;
-                document.getElementById("Cr_Co_" + num).innerHTML = corrColor;            
+                console.log("color: " + data.corrColor)
+                document.getElementById("Cr_Pl_" + num).innerHTML = data.corrPlaces;
+                document.getElementById("Cr_Cl_" + num).innerHTML = data.corrColor;
+                
+                
+                /* Clears the current guess (since the guess has been added to the previous guesses). */
+                for (var i = 1; document.body.contains(document.getElementById("color_selected"+ i)); i++){
+                    document.getElementById("color_selected"+i).style.backgroundColor = "white";
                 }
+                socket.send("CLR_ARRAY");
+                }
+                
             else if (key === "SRG") {
                 console.log("STARTING THE GAME........");
                 //$("#game_body").attr("disabled", false);
@@ -134,8 +149,8 @@ var messages = function () {
                 $("#waiting_screen").hide();
             }
         }
-        catch {
-            console.log(event.data);
+        catch (err) {
+            console.log(err.message);
         }
         
     };

@@ -24,7 +24,7 @@ PreviousGuesses.prototype.setAttempti = function(i, attempt) {
 
 /* Gets the Four_colors for the given position i.
 Throws an error if i is out of bounds for the array. */
-PreviousGuesses.prototype.getAttempti = function(i, attempt) {
+PreviousGuesses.prototype.getAttempti = function(i) {
     if (i > 9) {
         throw ("IndexOutOfBoundsException\n" +
         "The value of the index was " + i + ", but the maximum is 9.");
