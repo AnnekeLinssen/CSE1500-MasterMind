@@ -74,11 +74,16 @@ var messages = function () {
 
     /* Creating our server using Websockets. */
     var socket = new WebSocket("ws://localhost:3000");
+    socket.send("RDY _PLAYER_CONNECTED_TO_A_GAME");
 
     //$("#game_body").attr("disabled", true);
     $("#game_body").hide();
 
     $("#Crack").attr("disabled", "disabled");
+
+    $("#return_m_m_button").on('click', function() {
+        window.location.replace("./");
+    });
 
     /* When the crackbutton is clicked, do nothing? */
     $('#Crack').on("click", function () {
@@ -181,7 +186,7 @@ var messages = function () {
                 cracked = true;
                 socket.send("WON_OTHER_PLAYER_IS_A_LOSER");
                 alert("Congratulations! You've cracked the code and won the game!");
-                socket.close(); 
+                socket.terminate(); 
             }
             else if (key === "LSR") {
                 $("#Crack").prop("disabled", true);
@@ -190,11 +195,12 @@ var messages = function () {
                 alert("Too bad; the other player cracked the code first. You lost the game.");
                 var combination = data.game.combination;
                 showSolution(combination);
-                socket.close();
+                socket.terminate();
+                
             }
             else if (key === "GG_") {
                 console.log("Connection to the server is closed now.")
-                socket.close();
+                socket.terminate();
             }
             else if (key === "WBD") {
                 alert("You've won this game by default; the other player has given up.");
@@ -203,7 +209,9 @@ var messages = function () {
                 $("#Crack").prop("disabled", true);
                 $("#clear_selection").prop("disabled", true);
                 $(".concede_button").prop("disabled", true);
-                //socket.close();
+                // $(".main_menu").append("<a href='./' id='return_m_m_button'>Return To Main Menu</a>");
+                
+                //socket.terminate();
                 cracked = true;
             }
             else if (key === "GO_") {
@@ -213,7 +221,7 @@ var messages = function () {
                 $("#Crack").prop("disabled", true);
                 $("#clear_selection").prop("disabled", true);
                 $(".concede_button").prop("disabled", true);
-                socket.close();
+                socket.terminate();
             }
         }
         catch (err) {

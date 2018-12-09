@@ -55,33 +55,33 @@ wss.on("connection", function(ws, req) {
      */
 
     var ip = req.connection.remoteAddress;
-    ws.isAlive = true;
+   // ws.isAlive = true;
     let con = ws; 
     
    
-    if (gameStats.isPlayerAvailable()){
-      instance = messages.O_GAME_WON_BY;
-      currentGame = new Game(con, gameStats.newGameID());
-      instance.player1 = "A";
-      //console.log("IF");
-    }
-    else {
-      //console.log("elseef");
-      currentGame.startGame(con);
-      instance.player2 = "B";
-      // currentGame.messageBothPlayers(instance.type, instance.player1, instance.player2);
-      console.log("\nCombination is: " + JSON.stringify(currentGame.getCombination()));
-      setTimeout(function () {
-        var m = {
-          message: "SRG_GAME_IS_ABLE_TO_START",
-        };
-        m = JSON.stringify(m);
-        currentGame.messageToPlayers(m);
-      }, 1000);
+    // if (gameStats.isPlayerAvailable()){
+    //   instance = messages.O_GAME_WON_BY;
+    //   currentGame = new Game(con, gameStats.newGameID());
+    //   instance.player1 = "A";
+    //   //console.log("IF");
+    // }
+    // else {
+    //   //console.log("elseef");
+    //   currentGame.startGame(con);
+    //   instance.player2 = "B";
+    //   // currentGame.messageBothPlayers(instance.type, instance.player1, instance.player2);
+    //   console.log("\nCombination is: " + JSON.stringify(currentGame.getCombination()));
+    //   setTimeout(function () {
+    //     var m = {
+    //       message: "SRG_GAME_IS_ABLE_TO_START",
+    //     };
+    //     m = JSON.stringify(m);
+    //     currentGame.messageToPlayers(m);
+    //   }, 1000);
 
 
       //console.log("else");
-    }
+    //}
     //let bahur = gameStats.totalGames++;
     //con.id = bahur;
     // let playerType;
@@ -103,37 +103,63 @@ wss.on("connection", function(ws, req) {
     };
     
     ws.on('close', function close() {
-      console.log("Player disconnected");
-      if (currentGame.player1.isAlive) {
-        var p = "A";
-        var ws_w = currentGame.player1;
-        info = {
-          message: "WBD_PLAYER_CLOSED_CONNECTION",
-          game: currentGame,
-          con: con,
-          player: p
+      if (currentGame != undefined) {
+        gameStats.totalPlayers = gameStats.totalPlayers - 1;
+        console.log("Total players: " + gameStats.totalPlayers);
+        if (ws === currentGame.player2 && currentGame.player1 != null) {
+          console.log("Player 2 disconnected");
+          var p = "A";
+          var ws_w = currentGame.player1;
+          info = {
+            message: "WBD_PLAYER_CLOSED_CONNECTION",
+            game: currentGame,
+            //con: con,
+            player: p
+          }
+          var m = JSON.stringify(info);
+          ws_w.send(m);
+          ws.terminate();
         }
-        var m = JSON.stringify(info);
-        ws_w.send(m);
-      }
-      else if (currentGame.player2.isAlive) {
-        var p = "B";
-        var ws_w = currentGame.player2;
-        info = {
-          message: "WBD_PLAYER_CLOSED_CONNECTION",
-          game: currentGame,
-          con: con,
-          player: p
+        else if (ws === currentGame.player1 && currentGame.player2 != null) {
+          console.log("Player 1 disconnected");
+          var p = "B";
+          var ws_w = currentGame.player2;
+          info = {
+            message: "WBD_PLAYER_CLOSED_CONNECTION",
+            game: currentGame,
+            //con: con,
+            player: p
+          }
+          var m = JSON.stringify(info);
+          ws_w.send(m);
+          ws.terminate();
         }
-        var m = JSON.stringify(info);
-        ws_w.send(m);
       }
     });
 
     ws.on("message", function incoming(message) {
         console.log("\t[LOG] " + message);
         var key = message.substring(0,3);
-        if (key === "C_S"){
+        if (key === "RDY") {
+          if (gameStats.isPlayerAvailable()){
+            instance = messages.O_GAME_WON_BY;
+            currentGame = new Game(con, gameStats.newGameID());
+            instance.player1 = "A";
+          }
+          else {
+            currentGame.startGame(con);
+            instance.player2 = "B";
+            console.log("\nCombination is: " + JSON.stringify(currentGame.getCombination()));
+            setTimeout(function () {
+              var m = {
+                message: "SRG_GAME_IS_ABLE_TO_START",
+              };
+              m = JSON.stringify(m);
+              currentGame.messageToPlayers(m);
+            }, 1000);
+          }
+        }
+        else if (key === "C_S"){
 
           var p = (con === currentGame.player1) ? "A" : "B";
           var info = {
@@ -146,6 +172,25 @@ wss.on("connection", function(ws, req) {
           var m = JSON.stringify(info);
           //console.log(m);
           ws.send(m);
+        }
+
+        else if (key === "STS") {
+          var info = {
+            message: "SRS_STATS_RESULTS",
+            gamesInitialised: gameStats.totalGames,
+            currentPlayers : gameStats.totalPlayers
+          }
+          var m = JSON.stringify(info);
+
+          setTimeout(function() {
+            gameStats.totalGames = gameStats.totalGames - 1;
+            ws.send(m);
+            console.log("Stats send...");
+            ws.terminate();
+          //ws.close();
+          }, 500);
+          
+          
         }
 
         else if (key === "C_C"){
@@ -287,7 +332,7 @@ wss.on("connection", function(ws, req) {
       
     });
 
-    console.log("\nPlayer %s placed in game %s\n", player, currentGame.gameID);
+    //console.log("\nPlayer %s placed in game %s\n", player, currentGame.gameID);
 });
 
 server.listen(port, function (){
