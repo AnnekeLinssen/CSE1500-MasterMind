@@ -37,13 +37,13 @@ var websockets = {};
 
 wss.on("connection", function(ws, req) {
     //let's slow down the server response time a bit to make the change visible on the client side
-    setTimeout(function() {
-        console.log("Connection state: "+ ws.readyState);
-        ws.send("Thanks for the message. --Your server.");
+    // setTimeout(function() {
+    //     console.log("Connection state: "+ ws.readyState);
+    //     ws.send("Thanks for the message. --Your server.");
         
-        console.log("Connection state: "+ ws.readyState);
-        //ws.close();
-    }, 1000);
+    //     console.log("Connection state: "+ ws.readyState);
+    //     //ws.close();
+    // }, 1000);
 
     var player = gameStats.newPlayerID();
     //console.log(gameStats.totalPlayers + "\n\n");
@@ -95,7 +95,7 @@ wss.on("connection", function(ws, req) {
       currentGuessPlayer = (player === "A") ? plh.currentGuessP1 : plh.currentGuessP2;
       console.log(currentGuessPlayer);
       for (var i = 0; i < 4; i++) {
-          if(currentGuessPlayer[i] === 0) {
+          if(currentGuessPlayer[i] <= 0) {
               return false;
           }
       }
@@ -232,6 +232,26 @@ wss.on("connection", function(ws, req) {
           p.send(JSON.stringify(info));
           info.message = "GG_But it's over now.";
           currentGame.messageToPlayers(JSON.stringify(info));
+        }
+        else if (key === "IGU") {
+          var loser = (con === currentGame.player1) ? currentGame.player1 : currentGame.player2;
+          var winner = (con === currentGame.player1) ? currentGame.player2 : currentGame.player1;
+          var infoL = {
+            message: "GO_GAME_OVER",
+            game: currentGame,
+            con: con,
+            player: loser
+          };
+          loser.send(JSON.stringify(infoL));
+
+          var infoW = {
+            message: "WBD_PLAYER_WON_BY_DEFAULT",
+            game: currentGame,
+            con: con,
+            player: winner
+          };
+          winner.send(JSON.stringify(infoW));
+
         }
         else {
           ws.send("Yup, got it. --Your server.");
