@@ -8,32 +8,54 @@ var port = process.argv[2];
 var gameStats = require("./public/javascripts/GameStats");
 var Game = require("./public/javascripts/Game");
 var messages = require("./client/javascript/messages.js")
-
-module.exports = port;
-
-app.use(express.static(__dirname + "/client"));
-
-app.get("/", function(req, res){
-  res.sendfile("client/index.html", {root : "./"});
-});
-
-app.get("/Game", function(req, res){
-  res.sendfile("client/html/game.html", {root : "./"});
-});
-
+var cookies = require("cookie-parser");
+var credentials = require('./credentials.js');
 
 
 var server = http.createServer(app);
-
-
-
-var game = 1;
-
-
 const wss = new websocket.Server({ server });
 var currentGame;
 var instance;
-var websockets = {};
+var playersLoaded = 0;
+var visits = 0;
+module.exports = port;
+
+app.use(cookies(credentials.cookieSecret));
+
+app.use(express.static(__dirname + "/public"));
+
+app.set('view engine', 'ejs');
+
+
+app.get("/", function(req, res){
+  var vis = 1;
+  if (req.signedCookies.signed_visits != undefined) {
+    vis = ++req.signedCookies.signed_visits;
+  }
+  //res.cookie("chocolate", "kruemel");
+  res.cookie("signed_visits", vis, { signed: true});
+  res.render('index.ejs', { gamesInitialized: gameStats.totalGames, playersOnline: playersLoaded, vititedTimes: req.signedCookies.signed_visits });
+  playersLoaded = playersLoaded + 1;
+});
+
+app.get("/Game", function(req, res){
+  console.log("++++ unsigned ++++");
+  console.log(req.cookies);
+  console.log("++++ signed ++++");
+  console.log(req.signedCookies);
+  res.sendfile("game.html", {root : "./public"});
+});
+
+
+
+
+
+
+//var game = 1;
+
+
+
+//var websockets = {};
 
 wss.on("connection", function(ws, req) {
     //let's slow down the server response time a bit to make the change visible on the client side
@@ -45,16 +67,16 @@ wss.on("connection", function(ws, req) {
     //     //ws.close();
     // }, 1000);
 
-    var player = gameStats.newPlayerID();
+    //var player = gameStats.newPlayerID();
     //console.log(gameStats.totalPlayers + "\n\n");
 
 
-    var websockets = {};
+    //var websockets = {};
      /*
      * two-player game: every two players are added to the same game
      */
 
-    var ip = req.connection.remoteAddress;
+    //var ip = req.connection.remoteAddress;
    // ws.isAlive = true;
     let con = ws; 
     
@@ -141,6 +163,7 @@ wss.on("connection", function(ws, req) {
         console.log("\t[LOG] " + message);
         var key = message.substring(0,3);
         if (key === "RDY") {
+          gameStats.newPlayerID()
           if (gameStats.isPlayerAvailable()){
             instance = messages.O_GAME_WON_BY;
             currentGame = new Game(con, gameStats.newGameID());
@@ -178,14 +201,16 @@ wss.on("connection", function(ws, req) {
           var info = {
             message: "SRS_STATS_RESULTS",
             gamesInitialised: gameStats.totalGames,
-            currentPlayers : gameStats.totalPlayers
+            currentPlayers : playersLoaded
           }
+          playersLoaded = playersLoaded + 1;
           var m = JSON.stringify(info);
 
           setTimeout(function() {
-            gameStats.totalGames = gameStats.totalGames - 1;
+            //gameStats.totalGames = gameStats.totalGames - 1;
             ws.send(m);
             console.log("Stats send...");
+            
             ws.terminate();
           //ws.close();
           }, 500);

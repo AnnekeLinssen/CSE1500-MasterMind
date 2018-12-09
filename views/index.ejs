@@ -1,11 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+<meta charset="UTF-8">
+<title>CSE1500_Mastermind</title>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/rules.js" ></script>
+<!--<script type="text/javascript" src="javascript/stats.js" ></script>-->
+
+
+</head>
+
+<body>
+	<div id="header_introduction">
+		<div id="logo">
+			<h1>Mastermind</h1>
+		</div>
+		<div id="slogan">
+			<h4>Can you crack the code?</h4>
+		</div>
+	</div>
+	<div id="games played">
+		<h4>Games played: <%= gamesInitialized %></h4>
+			
+    <h4>Current players: <%= playersOnline %></h4>
+    
+    <h4>Times visited: <%= vititedTimes %></h4>
+		
+	</div>
+	<div id="next_game">
+		<h4>Be the one to play it next:</h4>
+		<a href="Game"><button><h2>PLAY</h2></button></a>
+	</div>
+</body>
+	
+<footer>
+	<div id="Rules">
+		<a class="rules_button">Rules <- Click</a>
+		<div class="rules_description" style="display:none"></div>
+		<p>Created by: Alves & Anneke</p>
+	</div>
+</footer>
 </html>
