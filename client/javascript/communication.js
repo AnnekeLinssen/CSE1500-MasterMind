@@ -67,7 +67,6 @@ var messages = function () {
                 case 6: document.getElementById(color).style.backgroundColor = "#40E0D0"; break;
                 case 7: document.getElementById(color).style.backgroundColor = "blue"; break;
                 case 8: document.getElementById(color).style.backgroundColor = "purple"; break;
-                default: console.log("They really fucked you over here....");
             }
         }
             // processColor(color, ("color_selected" + (i + 1)), player, com[i]);
@@ -178,14 +177,20 @@ var messages = function () {
                 console.log("All buttons will disable.")
                 $("#Crack").prop("disabled", true);
                 $("#clear_selection").prop("disabled", true);
+                $(".concede_button").prop("disabled", true);
                 cracked = true;
                 socket.send("WON_OTHER_PLAYER_IS_A_LOSER");
-                alert("Congratulations! You've cracked the code and won the game!"); 
+                alert("Congratulations! You've cracked the code and won the game!");
+                socket.close(); 
             }
             else if (key === "LSR") {
                 $("#Crack").prop("disabled", true);
                 $("#clear_selection").prop("disabled", true);
+                $(".concede_button").prop("disabled", true);
                 alert("Too bad; the other player cracked the code first. You lost the game.");
+                var combination = data.game.combination;
+                showSolution(combination);
+                socket.close();
             }
             else if (key === "GG_") {
                 console.log("Connection to the server is closed now.")
@@ -193,14 +198,22 @@ var messages = function () {
             }
             else if (key === "WBD") {
                 alert("You've won this game by default; the other player has given up.");
+                var com = data.game.combination;
+                showSolution(com);
                 $("#Crack").prop("disabled", true);
                 $("#clear_selection").prop("disabled", true);
+                $(".concede_button").prop("disabled", true);
+                //socket.close();
                 cracked = true;
             }
             else if (key === "GO_") {
                 var com = data.game.combination;
                 console.log("Combination: " + com);
                 showSolution(com);
+                $("#Crack").prop("disabled", true);
+                $("#clear_selection").prop("disabled", true);
+                $(".concede_button").prop("disabled", true);
+                socket.close();
             }
         }
         catch (err) {

@@ -55,7 +55,7 @@ wss.on("connection", function(ws, req) {
      */
 
     var ip = req.connection.remoteAddress;
-
+    ws.isAlive = true;
     let con = ws; 
     
    
@@ -102,6 +102,34 @@ wss.on("connection", function(ws, req) {
       return true;
     };
     
+    ws.on('close', function close() {
+      console.log("Player disconnected");
+      if (currentGame.player1.isAlive) {
+        var p = "A";
+        var ws_w = currentGame.player1;
+        info = {
+          message: "WBD_PLAYER_CLOSED_CONNECTION",
+          game: currentGame,
+          con: con,
+          player: p
+        }
+        var m = JSON.stringify(info);
+        ws_w.send(m);
+      }
+      else if (currentGame.player2.isAlive) {
+        var p = "B";
+        var ws_w = currentGame.player2;
+        info = {
+          message: "WBD_PLAYER_CLOSED_CONNECTION",
+          game: currentGame,
+          con: con,
+          player: p
+        }
+        var m = JSON.stringify(info);
+        ws_w.send(m);
+      }
+    });
+
     ws.on("message", function incoming(message) {
         console.log("\t[LOG] " + message);
         var key = message.substring(0,3);
