@@ -34,7 +34,7 @@ app.get("/", function(req, res){
   }
   //res.cookie("chocolate", "kruemel");
   res.cookie("signed_visits", vis, { signed: true});
-  res.render('index.ejs', { gamesInitialized: gameStats.totalGames, playersOnline: playersLoaded, vititedTimes: req.signedCookies.signed_visits });
+  res.render('index.ejs', { gamesInitialized: gameStats.totalGames, playersOnline: playersLoaded, vititedTimes: (vis === 1) ? vis : req.signedCookies.signed_visits });
   playersLoaded = playersLoaded + 1;
 });
 
