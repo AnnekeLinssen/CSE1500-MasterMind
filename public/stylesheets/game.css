@@ -1,0 +1,187 @@
+#header_introduction {
+    position: absolute;
+    top: -15px;
+    font-size: 90%;
+}
+
+body {
+    background-color: darkgray;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+
+body:fullscreen {
+  height: 100vh;
+  width: 100vw;
+  background-color: darkgray;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+}
+
+  .P_G {
+      width: 15px;
+      height: 15px;
+      border-radius: 4px;
+      margin: 5px;
+      background-color: white;
+      text-align: center;
+  }
+
+  .color_selection {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+    margin: 5px;
+    background-color: white;
+  }
+
+  .C_C {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+    margin: 5px;
+  }
+
+  #C_1 {
+      background-color: brown;
+  }
+
+  #C_2 {
+    background-color: red;
+  }
+
+  #C_3 {
+    background-color: orange;
+  }
+
+  #C_4 {
+    background-color: yellow;
+  }  
+
+  #C_5 {
+    background-color: green;
+  }
+
+  #C_6 {
+    background-color: #40e0d0;
+  }
+
+  #C_7 {
+    background-color: blue;
+  }
+
+  #C_8 {
+    background-color: purple
+    ;
+  }
+
+
+  #previous_guesses {
+      float: left;
+      width: 12em;
+  }
+
+  #Crack {
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    margin: 10px;
+    width: 108px;
+  }
+
+  #Rules:hover {
+    cursor: pointer;
+  }
+
+  #fullscreen:hover {
+    cursor: pointer;
+  }
+
+  #Crack:enabled:hover {
+    cursor: pointer;
+  }
+  
+  #Crack:enabled:active {
+    background-color: black;
+    color: darkgray;
+  }
+
+  #Crack:disabled {
+    background-color: gray;
+    color: darkgray;
+  }
+  
+  #clear_selection {
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    margin: 7px;
+    width: 108px;
+  }
+
+  #clear_selection:enabled:hover {
+    cursor: pointer;
+  }
+  
+  #clear_selection:enabled:active {
+    background-color: black;
+    color: darkgray;
+  }
+
+  #clear_selection:disabled {
+    background-color: gray;
+    color: darkgray;
+  }
+
+  #return_m_m_button {
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    margin: 7px;
+    width: 142px;
+  }
+
+  #return_m_m_button:hover {
+    cursor: pointer;
+  }
+  
+  #return_m_m_button:active {
+    background-color: black;
+    color: darkgray;
+  }
+
+  .concede_button {
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    margin: 7px;
+    width: 142px;
+  }
+
+  .concede_button:hover {
+    cursor: pointer;
+  }
+  
+  .concede_button:active {
+    background-color: black;
+    color: darkgray;
+  }
+
+  #waiting {
+    font-weight: bold;
+    animation: move 1s;
+}
+
+#waiting_screen {
+  color: gold;
+}
+
+@keyframes move {
+  from {
+    transform: translate(1000px, 0px)
+  }
+  to {
+    transform: translate(0px, 0px)
+  }
+}

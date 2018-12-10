@@ -122,10 +122,10 @@ var messages = function () {
             /* Shows which color choice has been selected by making that elements background grey and
             making all other options' backgrounds the others white. */
             else if (key === "C_C") {
-                for (var i = 1; document.body.contains(document.getElementById("C_"+ i)); i++){
-                    document.getElementById("C_"+i).style.backgroundColor = "white";
-                }
-                document.getElementById("C_"+data.message.substring(4)).style.backgroundColor = "darkgrey";
+                // for (var i = 1; document.body.contains(document.getElementById("C_"+ i)); i++){
+                //     document.getElementById("C_"+i).style.backgroundColor = "white";
+                // }
+                // document.getElementById("C_"+data.message.substring(4)).style.backgroundColor = "darkgrey";
 
             }
             else if (key === "CRA") {

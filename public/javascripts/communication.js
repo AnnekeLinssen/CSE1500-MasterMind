@@ -48,9 +48,9 @@ var messages = function () {
     
     /*Deselects all available colors (shows this through CSS, actual value removed using JS). */
     function clearSelectionChoice () {
-        for (var i = 1; document.body.contains(document.getElementById("C_"+ i)); i++){
-            document.getElementById("C_"+i).style.backgroundColor = "white";
-        }
+        // for (var i = 1; document.body.contains(document.getElementById("C_"+ i)); i++){
+        //     document.getElementById("C_"+i).style.backgroundColor = "white";
+        // }
         socket.send("RM_RESET_SELECTED_COLOR_2");
     };
 
@@ -122,10 +122,10 @@ var messages = function () {
             /* Shows which color choice has been selected by making that elements background grey and
             making all other options' backgrounds the others white. */
             else if (key === "C_C") {
-                for (var i = 1; document.body.contains(document.getElementById("C_"+ i)); i++){
-                    document.getElementById("C_"+i).style.backgroundColor = "white";
-                }
-                document.getElementById("C_"+data.message.substring(4)).style.backgroundColor = "darkgrey";
+                // for (var i = 1; document.body.contains(document.getElementById("C_"+ i)); i++){
+                //     document.getElementById("C_"+i).style.backgroundColor = "white";
+                // }
+                // document.getElementById("C_"+data.message.substring(4)).style.backgroundColor = "darkgrey";
 
             }
             else if (key === "CRA") {
@@ -171,9 +171,9 @@ var messages = function () {
                 
                 
                 /* Clears the current guess (since the guess has been added to the previous guesses). */
-                for (var i = 1; document.body.contains(document.getElementById("color_selected"+ i)); i++){
-                    document.getElementById("color_selected"+i).style.backgroundColor = "white";
-                }
+                // for (var i = 1; document.body.contains(document.getElementById("color_selected"+ i)); i++){
+                //     document.getElementById("color_selected"+i).style.backgroundColor = "white";
+                // }
                 socket.send("CLR_ARRAY");
                 }
 
@@ -189,6 +189,8 @@ var messages = function () {
                 $("#Crack").prop("disabled", true);
                 $("#clear_selection").prop("disabled", true);
                 $(".concede_button").prop("disabled", true);
+                $("#N_C").hide();
+                $("#Cracked").show();
                 cracked = true;
                 socket.send("WON_OTHER_PLAYER_IS_A_LOSER");
                 alert("Congratulations! You've cracked the code and won the game!");
@@ -278,6 +280,20 @@ var messages = function () {
         } else {
             console.log("DECLINED");
         }        
+    });
+
+    $("#fullscreen").on("click", function (event) {
+        console.log("fullscreen requested :(")
+        var elem = document.getElementById("body"); 
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+        }
     });
 
 

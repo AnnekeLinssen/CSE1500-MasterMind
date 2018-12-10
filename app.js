@@ -125,8 +125,8 @@ wss.on("connection", function(ws, req) {
     };
     
     ws.on('close', function close() {
+      playersLoaded = playersLoaded - 1;
       if (currentGame != undefined) {
-        gameStats.totalPlayers = gameStats.totalPlayers - 1;
         console.log("Total players: " + gameStats.totalPlayers);
         if (ws === currentGame.player2 && currentGame.player1 != null) {
           console.log("Player 2 disconnected");

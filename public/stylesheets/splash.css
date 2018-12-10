@@ -1,0 +1,63 @@
+body {
+  background-color: darkgray;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#main {
+  background-color: gold;
+  border-radius: 5px;
+  padding: 10px;
+  width: 40em;
+}
+
+#playButton {
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+  margin: 10px;
+  width: 108px;
+}
+
+#playButton:hover {
+  cursor: pointer;
+}
+
+#playButton:active {
+  background-color: black;
+  color: darkgray;
+}
+
+.rules_button {
+  font-size: 120%;
+  padding: 5px;
+  padding-right: 30px;
+  padding-left: 30px;
+  border-color: black;
+  border-radius: 8px;
+  border-width: 2px;
+  border-style: solid;
+  margin: 11px;
+  width: 200px;
+}
+
+.rules_button:hover {
+  cursor: pointer;
+}
+
+#playButton:active {
+  background-color: black;
+  color: darkgray;
+}
+
+.rules_button:hover {
+  cursor: pointer;
+}
+
+#Authors::after {
+  content: "Created by: Alves & Anneke";
+}
+
+#logo::before {
+  content: "Are you the..."
+}
