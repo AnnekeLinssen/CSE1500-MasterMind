@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSE1500_Mastermind_Project</title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/concede.js" ></script>
+<script type="text/javascript" src="javascripts/rules.js" ></script>
+<link rel="stylesheet" type ="text/css" href="stylesheets/game.css">
+<!--<script type="text/javascript" src="javascript/colors.js"></script>-->
+<!---
+<script type="text/javascript" src="javascript/greeting.js"></script>
+-->
+<script type="text/javascript" src="/javascripts/communication.js"></script>
+
+</head>
+
+<body id="body">
+	<div id="waiting_screen"> 
+		<div id="waiting">
+			WAITING FOR AN OPPONENT
+		</div>
+		<div id="Rules">
+				<a class="rules_button">Rules</a>
+				<div class="rules_description" style="display:none">
+					
+				</div>
+				<p>Created by: Alves & Anneke</p>
+			</div>
+	</div>
+	<div id="game_body">
+		<div id="header_introduction">
+			<h3>Mastermind</h3>
+			<h4 id="N_C">Can you crack the code?</h4>
+			<h4 id="Cracked" style="display:none">You cracked the code!</h4>
+		</div>
+		<div id="current_guess">
+			<div id="color_selections">
+				<a>Current Guess</a>
+				<br>
+				<div class="color_selection" style="display:inline-block" id="color_selected1"></div>
+				<div class="color_selection" style="display:inline-block" id="color_selected2"></div>
+				<div class="color_selection" style="display:inline-block" id="color_selected3"></div>
+				<div class="color_selection" style="display:inline-block" id="color_selected4"></div>
+				<div style="display:inline-block">
+					<button id="Crack">CRACK</button>
+				</div>
+			</div>
+			
+			<div id="color_choices">
+				<div class= "C_C" style="float:left" id="C_1"></div>
+				<div class= "C_C" style="float:left" id="C_2"></div>
+				<div class= "C_C" style="float:left" id="C_3"></div>
+				<div class= "C_C" style="float:left" id="C_4"></div>
+				<div class= "C_C" style="float:left" id="C_5"></div>
+				<div class= "C_C" style="float:left" id="C_6"></div>
+				<div class= "C_C" style="float:left" id="C_7"></div>
+				<div class= "C_C" style="float:left" id="C_8"></div>
+			</div>
+			<br>
+			<br>
+			<button id="clear_selection">Clear Selection</button>
+		</div>
+		<br>
+		<div style="margin-left: auto" id="previous_guesses">
+			<a>Previous Guesses</a>
+			<br>
+			<div id="guess1">
+				<div class="P_G" style="float:left" id="G1a"></div>
+				<div class="P_G" style="float:left" id="G1b"></div>
+				<div class="P_G" style="float:left" id="G1c"></div>
+				<div class="P_G" style="float:left" id="G1d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_1"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_1"></div>
+			</div>
+			<div id="guess2">
+				<div class="P_G" style="float:left" id="G2a"></div>
+				<div class="P_G" style="float:left" id="G2b"></div>
+				<div class="P_G" style="float:left" id="G2c"></div>
+				<div class="P_G" style="float:left" id="G2d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_2"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_2"></div>
+			</div>	
+			<div id="guess3">
+				<div class="P_G" style="float:left" id="G3a"></div>
+				<div class="P_G" style="float:left" id="G3b"></div>
+				<div class="P_G" style="float:left" id="G3c"></div>
+				<div class="P_G" style="float:left" id="G3d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_3"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_3"></div>
+			</div>
+			<div id="guess4">
+				<div class="P_G" style="float:left" id="G4a"></div>
+				<div class="P_G" style="float:left" id="G4b"></div>
+				<div class="P_G" style="float:left" id="G4c"></div>
+				<div class="P_G" style="float:left" id="G4d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_4"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_4"></div>
+			</div>
+			<div id="guess5">
+				<div class="P_G" style="float:left" id="G5a"></div>
+				<div class="P_G" style="float:left" id="G5b"></div>
+				<div class="P_G" style="float:left" id="G5c"></div>
+				<div class="P_G" style="float:left" id="G5d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_5"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_5"></div>
+			</div>	
+			<div id="guess6">
+				<div class="P_G" style="float:left" id="G6a"></div>
+				<div class="P_G" style="float:left" id="G6b"></div>
+				<div class="P_G" style="float:left" id="G6c"></div>
+				<div class="P_G" style="float:left" id="G6d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_6"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_6"></div>
+			</div>
+			<div id="guess7">
+				<div class="P_G" style="float:left" id="G7a"></div>
+				<div class="P_G" style="float:left" id="G7b"></div>
+				<div class="P_G" style="float:left" id="G7c"></div>
+				<div class="P_G" style="float:left" id="G7d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_7"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_7"></div>
+			<div id="guess8">
+				<div class="P_G" style="float:left" id="G8a"></div>
+				<div class="P_G" style="float:left" id="G8b"></div>
+				<div class="P_G" style="float:left" id="G8c"></div>
+				<div class="P_G" style="float:left" id="G8d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_8"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_8"></div>
+			</div>
+			<div id="guess9">
+				<div class="P_G" style="float:left" id="G9a"></div>
+				<div class="P_G" style="float:left" id="G9b"></div>
+				<div class="P_G" style="float:left" id="G9c"></div>
+				<div class="P_G" style="float:left" id="G9d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_9"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_9"></div>
+			</div>
+			<div id="guess10">
+				<div class="P_G" style="float:left" id="G10a"></div>
+				<div class="P_G" style="float:left" id="G10b"></div>
+				<div class="P_G" style="float:left" id="G10c"></div>
+				<div class="P_G" style="float:left" id="G10d"></div>
+				<div class="P_G" style="float:left" id="Cr_Pl_10"></div>
+				<div class="P_G" style="float:left" id="Cr_Cl_10"></div>
+			</div>	
+			<button class="concede_button">I give up! Show me the solution!</button>
+				
+		</div>
+	</div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
+</body>
+	
+<footer>
+	<div class="main_menu">
+		<button id='return_m_m_button'>Return To Main Menu</button>
+	</div>
+	<div class="toggleScreen">
+		<a id='fullscreen'>Toggle fullscreen</a>
+	</div>
+	<div id="Rules">
+		<a class="rules_button">Rules</a>
+		<div class="rules_description" style="display:none"></div>
+	</div>
+	<p>Created by: Alves & Anneke</p>
+</footer>
+</html>
